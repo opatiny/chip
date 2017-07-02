@@ -1,0 +1,19 @@
+{
+  "name": "chip",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.0.1",
+    "chip-io": "^2.1.1",
+    "delay": "^2.0.0",
+    "ease-component": "^1.0.0",
+    "johnny-five": "^0.11.3",
+    "nan": "^2.6.2"
+  }
+}
