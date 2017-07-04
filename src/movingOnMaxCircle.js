@@ -39,8 +39,8 @@ board.on("ready", async function () {
         for (let i=0; i<degrees.length; i++) {
 
             let angle1 = degrees[i];
-            let angle2 = degrees[i + degrees.length/3];
-            let angle3 = degrees[i + degrees.length/3*2];
+            let angle2 = degrees[(i + degrees.length/3) % degrees.length];
+            let angle3 = degrees[(i + degrees.length/3*2) % degrees.length];
 
             console.log(angle1, angle2, angle3);
 
