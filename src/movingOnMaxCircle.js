@@ -48,7 +48,7 @@ board.on("ready", async function () {
             servo2.to(angle2);
             servo3.to(angle3);
 
-            await delay(10);
+            await delay(50);
         }
     }
 })
