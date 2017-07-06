@@ -46,7 +46,7 @@ board.on("ready", async function () {
      180 150
      */
     var oneServoDegree  = (150 - 5) / 180;
-    
+
 
     // parameters of the cylinder
     // do not forget that angles are in rad in javascript!! (default)
@@ -56,10 +56,10 @@ board.on("ready", async function () {
 
     // parameters that can vary
     const radiusCenter = 16.1995; // rayon du cercle défini par la masse au centre du cylindre en [mm]
-    const rotation = Infinity; // number of rotations we want the mass to do (whole numbers), if it is unlimited, write NaN
+    const numberRotation = Infinity; // number of rotations we want the mass to do (whole numbers), if it is unlimited, write NaN
 
 
-    for (var currentRotation=0; currentRotation<rotation; currentRotation++) {
+    for (var currentRotation=0; currentRotation<numberRotation; currentRotation++) {
         for(var angleCenter = 0; angleCenter < 360; angleCenter += 5) {
             var r = radiusCenter;
             var xMassPosition1 = r * Math.cos(angleCenter / 180 * Math.PI);

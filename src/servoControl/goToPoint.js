@@ -75,13 +75,14 @@ board.on("ready", async function () {
     var angle2 = Math.round( 5 + oneServoDegree * formula(xMassPosition2, yMassPosition2, bigRadius, radiusServo, distance) );
     var angle3 = Math.round( 5 + oneServoDegree * formula(xMassPosition3, yMassPosition3, bigRadius, radiusServo, distance) );
 
-    5 + oneServoDegree *
+
 
 
     console.log(xMassPosition, yMassPosition, angle1, angle2, angle3);
 
     servo1.to(angle1);
-    servo2.to(angle2);servo3.to(angle3);
+    servo2.to(angle2);
+    servo3.to(angle3);
 
     await delay(50);
 
