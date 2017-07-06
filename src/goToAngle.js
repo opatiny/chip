@@ -13,16 +13,30 @@ board.on("ready", function() {
     console.log("Connected");
 
     // Initialize the servo instance
-    var servo = new five.Servo({
+    var servo1 = new five.Servo({
         address: 0x40,
         controller: "PCA9685",
-        pin: 0,
+        pin: 15
+    });
+
+    var servo2 = new five.Servo({
+        address: 0x40,
+        controller: "PCA9685",
+        pin: 14
+    });
+
+    var servo3 = new five.Servo({
+        address: 0x40,
+        controller: "PCA9685",
+        pin: 13
     });
 
 
-    var degrees = 90;
+    // var degrees = 90;
 
-    servo.to(degrees);
+    servo1.to(150);
+    servo2.to(150);
+    servo3.to(150);
 
 });
 
