@@ -1,3 +1,5 @@
+var debug = require('debug')('tm:circle');
+
 // function that returns the values of servos angles to move on a circle of given radius
 
 // servo1, servo2, servo3 and delay are parameters of the variable because it was the only way to put them in the function.
@@ -39,7 +41,7 @@ async function movingOnCircle (radiusCenter, numberRotation, servo1, servo2, ser
             var angle2 = Math.round(5 + oneServoDegree * formula(xMassPosition2, yMassPosition2, bigRadius, radiusServo, distance));
             var angle3 = Math.round(5 + oneServoDegree * formula(xMassPosition3, yMassPosition3, bigRadius, radiusServo, distance));
 
-            console.log(angleCenter, angle1, angle2, angle3);
+            debug(angleCenter, angle1, angle2, angle3);
 
             servo1.to(angle1);
             servo2.to(angle2);

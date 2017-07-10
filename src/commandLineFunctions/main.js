@@ -4,92 +4,71 @@
 */
 
 
-
+var debug = require('debug')('tm:main');
 var five = require('johnny-five');
 var chipio = require('chip-io');
 var delay = require('delay');
+
+var goToPoint = require('./goToPointFile.js');
+var movingOnCircle = require('./movingOnCircle.js');
+var moveDistance = require('./moveDistance.js');
 
 var board = new five.Board({
     io: new chipio()
 });
 
 board.on("ready", async function () {
-    console.log("Connected");
+    debug("Connected");
 
-    // Initialize the servo instance
-    var servo1 = new five.Servo({
+    var defaultServo = {
         address: 0x40,
-        controller: "PCA9685",
-        pin: 15
-    });
-    console.log("servo1 initialized");
+        controller: "PCA9685"
+    };
 
-    var servo2 = new five.Servo({
-        address: 0x40,
-        controller: "PCA9685",
-        pin: 14
-    });
-    console.log("servo2 initialized");
+    defaultServo.pin=15;
 
-    var servo3 = new five.Servo({
-        address: 0x40,
-        controller: "PCA9685",
-        pin: 13
-    });
-    console.log("servo3 initialized");
-
-
-
-    // var formula = require('./returnAngleFormula.js');
-    var goToPoint = require('./goToPointFile.js');
-    var movingOnCircle = require('./movingOnCircle.js');
-    var moveDistance = require('./moveDistance.js');
-
-    console.log("Functions required.");
-
-
-    function grab(flag) {
-        var index = process.argv.indexOf(flag);
-        return (index === -1) ? null : process.argv[index + 1];
-    }
+    var servo1 = new five.Servo( Object.assign({}, defaultServo, {pin:15}) );
+    var servo2 = new five.Servo( Object.assign({}, defaultServo, {pin:14}) );
+    var servo3 = new five.Servo( Object.assign({}, defaultServo, {pin:13}) );
+    debug("servos initialized");
 
 
     // parameters that can vary (here, they come from the process.argv)
-    const radiusCenter = grab('--r'); // radius of the circle the mass runs on in [mm]
-    const numberRotation = grab('--tour'); // number of rotations we want the mass to do (whole numbers), if it is unlimited, write Infinity
-    const xMassPosition = grab('--x'); // x component of mass position in [mm]
-    const yMassPosition = grab('--y'); // y component of mass position in [mm]
-    const length = grab('--l'); // distance the cylinder has to move in [mm]
-    const timeToWait = grab('--d'); // distance the cylinder has to move in [mm]
+    const radiusCenter = grab('--r');       // radius of the circle the mass runs on in [mm]
+    const numberRotation = grab('--tour');  // number of rotations we want the mass to do (whole numbers), if it is unlimited, write Infinity
+    const xMassPosition = grab('--x');      // x component of mass position in [mm]
+    const yMassPosition = grab('--y');      // y component of mass position in [mm]
+    const length = grab('--l');             // distance the cylinder has to move in [mm]
+    const timeToWait = grab('--d');         // delay to wait [ms]
 
-    async function wait(timeToWait) {
-        await delay(timeToWait)
-    }
 
-    console.log(radiusCenter, numberRotation, xMassPosition, yMassPosition, length, timeToWait);
+    debug(radiusCenter, numberRotation, xMassPosition, yMassPosition, length, timeToWait);
 
     if (!(radiusCenter && numberRotation) && !(xMassPosition && yMassPosition) && !length && !timeToWait){
-        console.log('No data to execute.');
+        debug('No data to execute.');
     }
 
     if (radiusCenter && numberRotation) {
         console.log('You are in movingOnCircle');
-        movingOnCircle(radiusCenter, numberRotation, servo1, servo2, servo3, delay);
+        await movingOnCircle(radiusCenter, numberRotation, servo1, servo2, servo3, delay);
     }
     if (xMassPosition && yMassPosition) {
         console.log('You are in goToPoint');
-
-        goToPoint(xMassPosition, yMassPosition, servo1, servo2, servo3, delay);
+        await goToPoint(xMassPosition, yMassPosition, servo1, servo2, servo3, delay);
     }
     if (length){
         console.log('You are in moveDistance');
-
-        moveDistance(length, servo1, servo2, servo3, delay);
+        await moveDistance(length, servo1, servo2, servo3, delay);
     }
 
     if (timeToWait) {
-        wait(timeToWait);
+        await delay(timeToWait)
         console.log(`You waited ${timeToWait} [ms]`);
     }
 });
 
+
+function grab(flag) {
+    let index=process.argv.indexOf(flag);
+    return (index === -1) ? null : process.argv[index + 1];
+}
