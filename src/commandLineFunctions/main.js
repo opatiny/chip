@@ -1,6 +1,9 @@
 /* This document will require all the different functions that we developed, like making to rotations,
  going to a specific point, moving three meters forward,... It uses command line arguments
  (https://www.youtube.com/watch?v=yTJ9OJmbiHU).
+
+ TO run the code just use
+ node main --? numberYouWant --? otherNumberYouWant
 */
 
 
@@ -12,6 +15,7 @@ var delay = require('delay');
 var goToPoint = require('./goToPointFile.js');
 var movingOnCircle = require('./movingOnCircle.js');
 var moveDistance = require('./moveDistance.js');
+var spiral = require('./spiral.js');
 
 var board = new five.Board({
     io: new chipio()
@@ -40,11 +44,11 @@ board.on("ready", async function () {
     const yMassPosition = grab('--y');      // y component of mass position in [mm]
     const length = grab('--l');             // distance the cylinder has to move in [mm]
     const timeToWait = grab('--d');         // delay to wait [ms]
-
+    const numberSpires = grab('--spires')   // number of time you want the mass to go aroud on your spiral
 
     debug(radiusCenter, numberRotation, xMassPosition, yMassPosition, length, timeToWait);
 
-    if (!(radiusCenter && numberRotation) && !(xMassPosition && yMassPosition) && !length && !timeToWait){
+    if (!(radiusCenter && numberRotation) && !(xMassPosition && yMassPosition) && !length && !timeToWait && !numberSpires){
         debug('No data to execute.');
     }
 
@@ -59,6 +63,11 @@ board.on("ready", async function () {
     if (length){
         console.log('You are in moveDistance');
         await moveDistance(length, servo1, servo2, servo3, delay);
+    }
+
+    if (numberSpires){
+        console.log('You are in spiral');
+        await spiral(numberSpires, servo1, servo2, servo3, delay);
     }
 
     if (timeToWait) {
