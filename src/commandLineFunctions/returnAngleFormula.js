@@ -1,5 +1,5 @@
 "use strict";
-// angle of the servos depending on the angle in the center (defines mass position)
+// formula that returns the angle of the servos depending on the angle in the center (defines mass position)
 // angleServo are the angles of the three different servos, they are between 0 and 180 degrees
 
 // do not forget that angles are in rad in javascript!! (default)

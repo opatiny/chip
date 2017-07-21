@@ -47,7 +47,7 @@ async function movingOnCircle (radiusCenter, numberRotation, servo1, servo2, ser
             servo2.to(angle2);
             servo3.to(angle3);
 
-            await delay(50);
+            await delay(200);
         }
     }
 
