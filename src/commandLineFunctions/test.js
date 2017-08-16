@@ -1,5 +1,6 @@
 /**
  * Created by opatiny on 7/6/17.
+ * testing the command line functions using process.argv
  */
 
 

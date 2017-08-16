@@ -32,7 +32,7 @@ async function moveDistance (length) {
     // in this case, we consider the maximal possible radius in the center
     const radiusCenter = radiusServo - 0.005;
 
-    console.log({radiusServo: radiusServo, radiusCenter: radiusCenter, P: 2 * Math.PI * cylinderRadius, angle: angle});
+    debug({radiusServo: radiusServo, radiusCenter: radiusCenter, P: 2 * Math.PI * cylinderRadius, angle: angle});
 
 
     for (var angleCenter = 0; angleCenter < angle; angleCenter += 5) {

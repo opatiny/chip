@@ -3,6 +3,8 @@
 // parameters of cylinderPrototype3
 // do not forget that angles are in rad in javascript!! (default)
 const radiusServo = 50; // rayon défini par l'axe du servo en [mm]
+const maxRadiusCenter = 40; // rayon défini par l'axe du servo en [mm]
+
 const bigRadius = 100; // distance between center of cylinder and center of servo [mm]
 const distance = 100; // distance between point on center circle of cylinder and end of servo axis [mm]
 const cylinderRadius = 160; // radius of the cylinder in [mm]
@@ -49,6 +51,7 @@ function setServoAngle( angle, info) {
 
 module.exports = {
     radiusServo,
+    maxRadiusCenter,
     bigRadius,
     distance,
     cylinderRadius,

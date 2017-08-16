@@ -48,7 +48,7 @@ board.on("ready", async function () {
     debug(radiusCenter, numberRotation, xMassPosition, yMassPosition, length, timeToWait);
 
     if (!(radiusCenter) && !(xMassPosition && yMassPosition) && !length && !timeToWait && !numberSpires){
-        debug('No data to execute.');
+        console.log('No data to execute.');
     }
 
 
