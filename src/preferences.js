@@ -2,12 +2,15 @@
 var pro=true;
 
 if (pro) {
-   ChipIO=require('./chip-io-pro')
+   let ChipIO=require('./chip-io-pro');
+   let servoPins=[0,1,2];
 } else {
-   ChipIO=require('chip-io');
+   let ChipIO=require('chip-io');
+   let servoPins=[15,14,13];
 }
 
 
 module.exports={
-    ChipIO
-}
+    ChipIO,
+    servoPins
+};
