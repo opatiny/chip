@@ -1,18 +1,24 @@
 // program that allows to make a servo sweep back and forth using CHIP
 
-var five = require('johnny-five');
-var chipio = require('chip-io');
+var Five = require('johnny-five');
+
+var {
+    ChipIO
+} = require('./preferences');
+
 var delay = require('delay');
 
-var board = new five.Board({
-    io: new chipio()
+
+
+var board = new Five.Board({
+    io: new ChipIO()
 });
 
 board.on("ready", async function() {
     console.log("Connected");
 
     // Initialize the servo instance
-    var servo = new five.Servo({
+    var servo = new Five.Servo({
         address: 0x40,
         controller: "PCA9685",
         pin: 15
@@ -41,5 +47,5 @@ board.on("ready", async function() {
     }
  */
 
-});
+})
 

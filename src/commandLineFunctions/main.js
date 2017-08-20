@@ -8,19 +8,24 @@
 
 
 var debug = require('debug')('tm:main');
-var five = require('johnny-five');
-var chipio = require('chip-io');
+var Five = require('johnny-five');
+var ChipIO = require('../preferences.js').ChipIO;
+debug('chipio required');
+
 var delay = require('delay');
 
-var board = new five.Board({
-    io: new chipio()
+var board = new Five.Board({
+    io: new ChipIO()
 });
+
+debug('new chipio');
 
 var goToPoint = require('./goToPoint.js');
 var movingOnCircle = require('./movingOnCircle.js');
 var moveDistance = require('./moveDistance.js');
 var spiral = require('./spiral.js');
 
+debug('functions required');
 
 board.on("ready", async function () {
     debug("Connected");
@@ -76,5 +81,5 @@ board.on("ready", async function () {
         await spiral(numberSpires);
     }
 
-});
+})
 
