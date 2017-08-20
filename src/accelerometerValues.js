@@ -2,8 +2,12 @@
 // this program returns values of the accelerometer on every change of these values
 
 var Five = require('johnny-five');
-var ChipIO = require('chip-io');
-//var ChipIO = require('./chip-io-pro');
+
+var {
+    ChipIO
+} = require('./preferences');
+
+
 
 var board = new Five.Board({
     io: new ChipIO()
@@ -28,7 +32,7 @@ board.on('ready', function() {
             acceleration: this.acceleration,
             inclination: this.inclination,
             orientation: this.orientation
-        }
+        };
         console.log(result);
     });
 });
