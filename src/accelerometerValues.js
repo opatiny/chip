@@ -1,16 +1,19 @@
 //http://johnny-five.io/examples/imu-mpu6050/
 // this program returns values of the accelerometer on every change of these values
 
-var five = require('johnny-five');
-var chipio = require('chip-io');
+var Five = require('johnny-five');
+//var ChipIO = require('chip-io');
+var ChipIO = require('./chip-io-pro');
 
-var board = new five.Board({
-    io: new chipio()
+var board = new Five.Board({
+    io: new ChipIO()
 });
+
+
 
 board.on('ready', function() {
 
-    var accelerometer = new five.Accelerometer({
+    var accelerometer = new Five.Accelerometer({
         controller: "MPU6050",
         sensitivity: 16384 // optional
     });
