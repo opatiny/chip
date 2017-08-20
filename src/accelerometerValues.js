@@ -2,8 +2,8 @@
 // this program returns values of the accelerometer on every change of these values
 
 var Five = require('johnny-five');
-//var ChipIO = require('chip-io');
-var ChipIO = require('./chip-io-pro');
+var ChipIO = require('chip-io');
+//var ChipIO = require('./chip-io-pro');
 
 var board = new Five.Board({
     io: new ChipIO()
