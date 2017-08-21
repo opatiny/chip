@@ -1,14 +1,12 @@
-'use strict'
 
 // parameters of cylinderPrototype2
 // do not forget that angles are in rad in javascript!! (default)
 
 
-
- const radiusServo = 16.2; // rayon défini par l'axe du servo en [mm]
- const bigRadius = 109.2; // distance between center of cylinder and center of servo [mm]
- const distance = 109.2; // distance between point on center circle of cylinder and end of servo axis [mm]
- const cylinderRadius = 150; // radius of the cylinder in [mm]
+const radiusServo = 16.2; // rayon défini par l'axe du servo en [mm]
+const bigRadius = 109.2; // distance between center of cylinder and center of servo [mm]
+const distance = 109.2; // distance between point on center circle of cylinder and end of servo axis [mm]
+const cylinderRadius = 150; // radius of the cylinder in [mm]
 
 
 /*

@@ -1,19 +1,19 @@
 
-var pro=false;
+var pro = false;
 
 var ChipIO;
 var servoPins;
 
 if (pro) {
-   ChipIO=require('./chip-io-pro');
-   servoPins=[0,1,2];
+    ChipIO = require('./chip-io-pro');
+    servoPins = [0, 1, 2];
 } else {
-   ChipIO=require('../node_modules/chip-io');
-   servoPins=[15,14,13];
+    ChipIO = require('../node_modules/chip-io');
+    servoPins = [15, 14, 13];
 }
 
 
-module.exports={
+module.exports = {
     ChipIO,
     servoPins
 };

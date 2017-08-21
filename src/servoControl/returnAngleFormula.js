@@ -1,4 +1,4 @@
-"use strict";
+
 // angle of the servos depending on the angle in the center (defines mass position)
 // angleServo are the angles of the three different servos, they are between 0 and 180 degrees
 
@@ -20,10 +20,10 @@ function formula(xMassPosition, yMassPosition, bigRadius, radiusServo, distance)
 
     // a is the x component of a point situated on the circle described by the end of the servos axis, this function returns two values on the circle (a1, a2), but only one is correct.
 
-    var root = 4 * ( y**2 * R**2 - R * (R - x) * delta + y**2 * (s**2 - R**2) + (s**2 - R**2) * (R - x)**2) - delta**2;
+    var root = 4 * (y ** 2 * R ** 2 - R * (R - x) * delta + y ** 2 * (s ** 2 - R ** 2) + (s ** 2 - R ** 2) * (R - x) ** 2) - delta ** 2;
 
-    var a1 = ( 2 * y ** 2 * R - (R - x) * delta + y * Math.sqrt( root )) / ( 2 * (y**2 + (R - x)**2) );
-    var a2 = ( 2 * y ** 2 * R - (R - x) * delta - y * Math.sqrt( root )) / ( 2 * (y**2 + (R - x)**2) );
+    var a1 = (2 * y ** 2 * R - (R - x) * delta + y * Math.sqrt(root)) / (2 * (y ** 2 + (R - x) ** 2));
+    var a2 = (2 * y ** 2 * R - (R - x) * delta - y * Math.sqrt(root)) / (2 * (y ** 2 + (R - x) ** 2));
 
     // console.log(a1,a2);
 
@@ -60,8 +60,6 @@ for(angleCenter = 0; angleCenter < 360; angleCenter += 5) {
     console.log(angleServo3);
     // console.log(angleCenter + '\t' + angleServo + '\t' + angleServo2 + '\t' + angleServo3);
 }
-
-
 
 
  var angleServo = formula(angleCenter, radiusCenter, bigRadius, radiusServo, distance);

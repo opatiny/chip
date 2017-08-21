@@ -32,9 +32,9 @@ async function goToPoint(xMassPosition, yMassPosition) {
     var yMassPosition3 = r * Math.sin(240 / 180 * Math.PI);
 
 
-    var angle1 = setServoAngle( 180 - formula(xMassPosition, yMassPosition, bigRadius, radiusServo, distance), infoServo1 );
-    var angle2 = setServoAngle( 180 - formula(xMassPosition2, yMassPosition2, bigRadius, radiusServo, distance), infoServo2 );
-    var angle3 = setServoAngle( 180 - formula(xMassPosition3, yMassPosition3, bigRadius, radiusServo, distance), infoServo3 );
+    var angle1 = setServoAngle(180 - formula(xMassPosition, yMassPosition, bigRadius, radiusServo, distance), infoServo1);
+    var angle2 = setServoAngle(180 - formula(xMassPosition2, yMassPosition2, bigRadius, radiusServo, distance), infoServo2);
+    var angle3 = setServoAngle(180 - formula(xMassPosition3, yMassPosition3, bigRadius, radiusServo, distance), infoServo3);
 
 
     console.log(xMassPosition, yMassPosition, angle1, angle2, angle3);

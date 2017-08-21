@@ -27,35 +27,33 @@ var spiral = require('./spiral.js');
 
 debug('functions required');
 
-board.on("ready", async function () {
-    debug("Connected");
+board.on('ready', async function () {
+    debug('Connected');
 
     const {servo1, servo2, servo3} = require('./servoPins.js');
-    debug("servos initialized");
-
+    debug('servos initialized');
 
 
     function grab(flag) {
-        let index=process.argv.indexOf(flag);
+        let index = process.argv.indexOf(flag);
         return (index === -1) ? undefined : process.argv[index + 1];
     }
 
 
     // parameters that can vary (here, they come from the process.argv)
-    const radiusCenter = grab('--r');       // radius of the circle the mass runs on in [mm]
-    const numberRotation = grab('--tour');  // number of rotations we want the mass to do (whole numbers), if it is unlimited, write Infinity
-    const xMassPosition = grab('--x');      // x component of mass position in [mm]
-    const yMassPosition = grab('--y');      // y component of mass position in [mm]
-    const length = grab('--l');             // distance the cylinder has to move in [mm]
-    const timeToWait = grab('--d');         // delay to wait [ms]
-    const numberSpires = grab('--spires');   // number of time you want the mass to go around on your spiral
+    const radiusCenter = grab('--r'); // radius of the circle the mass runs on in [mm]
+    const numberRotation = grab('--tour'); // number of rotations we want the mass to do (whole numbers), if it is unlimited, write Infinity
+    const xMassPosition = grab('--x'); // x component of mass position in [mm]
+    const yMassPosition = grab('--y'); // y component of mass position in [mm]
+    const length = grab('--l'); // distance the cylinder has to move in [mm]
+    const timeToWait = grab('--d'); // delay to wait [ms]
+    const numberSpires = grab('--spires'); // number of time you want the mass to go around on your spiral
 
     debug(radiusCenter, numberRotation, xMassPosition, yMassPosition, length, timeToWait);
 
-    if (!(radiusCenter) && !(xMassPosition && yMassPosition) && !length && !timeToWait && !numberSpires){
+    if (!(radiusCenter) && !(xMassPosition && yMassPosition) && !length && !timeToWait && !numberSpires) {
         console.log('No data to execute.');
     }
-
 
 
     if (timeToWait) {
@@ -71,15 +69,15 @@ board.on("ready", async function () {
         console.log('You are in goToPoint');
         await goToPoint(xMassPosition, yMassPosition);
     }
-    if (length){
+    if (length) {
         console.log('You are in moveDistance');
         await moveDistance(length);
     }
 
-    if (numberSpires){
+    if (numberSpires) {
         console.log('You are in spiral');
         await spiral(numberSpires);
     }
 
-})
+});
 

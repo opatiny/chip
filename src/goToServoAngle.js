@@ -9,70 +9,69 @@ var board = new five.Board({
     io: new chipio()
 });
 
-board.on("ready", function() {
-    console.log("Connected");
+board.on('ready', function () {
+    console.log('Connected');
 
     // Initialize the servo instance
     var servo1 = new five.Servo({
         address: 0x40,
-        controller: "PCA9685",
+        controller: 'PCA9685',
         pin: 15
     });
 
     var servo2 = new five.Servo({
         address: 0x40,
-        controller: "PCA9685",
+        controller: 'PCA9685',
         pin: 14
     });
 
     var servo3 = new five.Servo({
         address: 0x40,
-        controller: "PCA9685",
+        controller: 'PCA9685',
         pin: 13
     });
 
-    servo2.tuning={
+    servo2.tuning = {
 
 
     };
 
 
-    const servoAngle = grab('--a');          // general angle of all the servos in degree or
-    const servoAngle1 = grab('--a1');        // input angle of servo1 in degree
-    const servoAngle2 = grab('--a2');        // input angle of servo2 in degree
-    const servoAngle3 = grab('--a3');        // input servoangle of servo3 in degree
+    const servoAngle = grab('--a'); // general angle of all the servos in degree or
+    const servoAngle1 = grab('--a1'); // input angle of servo1 in degree
+    const servoAngle2 = grab('--a2'); // input angle of servo2 in degree
+    const servoAngle3 = grab('--a3'); // input servoangle of servo3 in degree
 
-    if (!servoAngle && !servoAngle1 && !servoAngle2 && !servoAngle3){
+    if (!servoAngle && !servoAngle1 && !servoAngle2 && !servoAngle3) {
         console.log('No data to execute.');
     }
-
 
 
     if (angle) {
         servo1.to(servoAngle);
         servo2.to(servoAngle);
         servo3.to(servoAngle);
-    console.log(`Values of the servo input angles are ${servoAngle} degrees.` );
-}
+        console.log(`Values of the servo input angles are ${servoAngle} degrees.`);
+    }
 
     if (angle1) {
         servo1.to(servoAngle1);
-        console.log(`Servo input value of angle1 is ${servoAngle1} degrees.` );
+        console.log(`Servo input value of angle1 is ${servoAngle1} degrees.`);
     }
     if (angle2) {
         servo2.to(servoAngle2);
-        console.log(`Servo input value of angle2 is ${servoAngle2} degrees.` );
+        console.log(`Servo input value of angle2 is ${servoAngle2} degrees.`);
     }
     if (angle3) {
         servo3.to(servoAngle3);
-        console.log(`Servo input value of angle3 is ${servoAngle3} degrees.` );
+        console.log(`Servo input value of angle3 is ${servoAngle3} degrees.`);
     }
 
 
 });
 
 function grab(flag) {
-    let index=process.argv.indexOf(flag);
+    let index = process.argv.indexOf(flag);
     return (index === -1) ? null : process.argv[index + 1];
 }
 
