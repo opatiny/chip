@@ -1,14 +1,14 @@
 
-var pro=true;
+var pro=false;
 
 var ChipIO;
 var servoPins;
 
 if (pro) {
    ChipIO=require('./chip-io-pro');
-   servoPins=[2,1,0];
+   servoPins=[0,1,2];
 } else {
-   ChipIO=require('chip-io');
+   ChipIO=require('../node_modules/chip-io');
    servoPins=[15,14,13];
 }
 
