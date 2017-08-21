@@ -8,32 +8,31 @@ var board = new five.Board({
     io: new chipio()
 });
 
-board.on("ready", async function () {
-    console.log("Connected");
+board.on('ready', async function () {
+    console.log('Connected');
 
     // Initialize the servo instance
     var servo1 = new five.Servo({
         address: 0x40,
-        controller: "PCA9685",
+        controller: 'PCA9685',
         pin: 15
     });
-    console.log("servo1 initialized");
+    console.log('servo1 initialized');
 
     var servo2 = new five.Servo({
         address: 0x40,
-        controller: "PCA9685",
+        controller: 'PCA9685',
         pin: 14
     });
-    console.log("servo2 initialized");
+    console.log('servo2 initialized');
 
 
     var servo3 = new five.Servo({
         address: 0x40,
-        controller: "PCA9685",
+        controller: 'PCA9685',
         pin: 13
     });
-    console.log("servo3 initialized");
-
+    console.log('servo3 initialized');
 
 
     var formula = require('./returnAngleFormula.js');
@@ -48,7 +47,7 @@ board.on("ready", async function () {
      0   5
      180 150
      */
-    var oneServoDegree  = 1; // (150 - 5) / 180;
+    var oneServoDegree = 1; // (150 - 5) / 180;
 
     // parameters of the cylinder
     // do not forget that angles are in rad in javascript!! (default)
@@ -62,7 +61,7 @@ board.on("ready", async function () {
 
 
     // every point in the cylinder is on a circle of center G.
-    var r = (xMassPosition**2 + yMassPosition**2)**0.5;
+    var r = (xMassPosition ** 2 + yMassPosition ** 2) ** 0.5;
 
     var xMassPosition2 = r * Math.cos(120 / 180 * Math.PI);
     var yMassPosition2 = r * Math.sin(120 / 180 * Math.PI);
@@ -71,11 +70,9 @@ board.on("ready", async function () {
     var yMassPosition3 = r * Math.sin(240 / 180 * Math.PI);
 
 
-    var angle1 = Math.round( 5 + oneServoDegree * formula(xMassPosition, yMassPosition, bigRadius, radiusServo, distance) );
-    var angle2 = Math.round( 5 + oneServoDegree * formula(xMassPosition2, yMassPosition2, bigRadius, radiusServo, distance) );
-    var angle3 = Math.round( 5 + oneServoDegree * formula(xMassPosition3, yMassPosition3, bigRadius, radiusServo, distance) );
-
-
+    var angle1 = Math.round(5 + oneServoDegree * formula(xMassPosition, yMassPosition, bigRadius, radiusServo, distance));
+    var angle2 = Math.round(5 + oneServoDegree * formula(xMassPosition2, yMassPosition2, bigRadius, radiusServo, distance));
+    var angle3 = Math.round(5 + oneServoDegree * formula(xMassPosition3, yMassPosition3, bigRadius, radiusServo, distance));
 
 
     console.log(xMassPosition, yMassPosition, angle1, angle2, angle3);
@@ -86,5 +83,5 @@ board.on("ready", async function () {
 
     await delay(50);
 
-})
+});
 

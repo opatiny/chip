@@ -3,7 +3,7 @@ const servoPins = require('../preferences').servoPins;
 
 let defaultServo = {
     address: 0x40,
-    controller: "PCA9685"
+    controller: 'PCA9685'
 };
 
 

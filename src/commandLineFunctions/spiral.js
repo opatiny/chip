@@ -5,8 +5,7 @@ const {servo1, servo2, servo3} = require('./servoPins.js');
 // function that returns the values of servos angles to move on a spiral with the number of rotations as a parameter (-- spires)
 
 // servo1, servo2, servo3 and delay are parameters of the variable because it was the only way to put them in the function.
-async function spiral (numberSpires) {
-
+async function spiral(numberSpires) {
 
 
     const radiusServo = require('./systemParameters3.js').radiusServo; // rayon défini par l'axe du servo en [mm]
@@ -26,7 +25,7 @@ async function spiral (numberSpires) {
 
     console.log(numberSpires);
 
-    var counter=0;
+    var counter = 0;
     for (var currentRotation = 0; currentRotation < numberSpires; currentRotation++) {
         for (var angleCenter = 0; angleCenter < 360; angleCenter += 5) {
             var r = radiusCenter - counter++ * radiusCenter / 72 / numberSpires;
@@ -39,9 +38,9 @@ async function spiral (numberSpires) {
             var xMassPosition3 = r * Math.cos((angleCenter + 240) / 180 * Math.PI);
             var yMassPosition3 = r * Math.sin((angleCenter + 240) / 180 * Math.PI);
 
-            var angle1 = setServoAngle( 180 - formula(xMassPosition1, yMassPosition1, bigRadius, radiusServo, distance), infoServo1 );
-            var angle2 = setServoAngle( 180 - formula(xMassPosition2, yMassPosition2, bigRadius, radiusServo, distance), infoServo2 );
-            var angle3 = setServoAngle( 180 - formula(xMassPosition3, yMassPosition3, bigRadius, radiusServo, distance), infoServo3 );
+            var angle1 = setServoAngle(180 - formula(xMassPosition1, yMassPosition1, bigRadius, radiusServo, distance), infoServo1);
+            var angle2 = setServoAngle(180 - formula(xMassPosition2, yMassPosition2, bigRadius, radiusServo, distance), infoServo2);
+            var angle3 = setServoAngle(180 - formula(xMassPosition3, yMassPosition3, bigRadius, radiusServo, distance), infoServo3);
 
             console.log(r.toPrecision(4), angle1, angle2, angle3);
 

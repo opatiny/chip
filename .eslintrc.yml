@@ -1,0 +1,7 @@
+extends: 'eslint-config-cheminfo'
+parserOptions:
+  sourceType: module
+env:
+  jest: true
+rules:
+  no-console: 0

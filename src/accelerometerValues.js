@@ -8,21 +8,18 @@ var {
 } = require('./preferences');
 
 
-
 var board = new Five.Board({
     io: new ChipIO()
 });
 
-
-
-board.on('ready', function() {
+board.on('ready', function () {
 
     var accelerometer = new Five.Accelerometer({
-        controller: "MPU6050",
+        controller: 'MPU6050',
         sensitivity: 16384 // optional
     });
 
-    accelerometer.on("change", function() {
+    accelerometer.on('change', function () {
         var result = {
             x: this.x,
             y: this.y,

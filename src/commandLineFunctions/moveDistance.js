@@ -7,8 +7,7 @@ const delay = require('delay');
 const {servo1, servo2, servo3} = require('./servoPins.js');
 
 
-async function moveDistance (length) {
-
+async function moveDistance(length) {
 
 
     // parameters that depend on the system parameters
@@ -47,9 +46,9 @@ async function moveDistance (length) {
         var xMassPosition3 = r * Math.cos((angleCenter + 240) / 180 * Math.PI);
         var yMassPosition3 = r * Math.sin((angleCenter + 240) / 180 * Math.PI);
 
-        var angle1 = setServoAngle( 180 - formula(xMassPosition1, yMassPosition1, bigRadius, radiusServo, distance) , infoServo1 );
-        var angle2 = setServoAngle( 180 - formula(xMassPosition2, yMassPosition2, bigRadius, radiusServo, distance) , infoServo2 );
-        var angle3 = setServoAngle( 180 - formula(xMassPosition3, yMassPosition3, bigRadius, radiusServo, distance) , infoServo3 );
+        var angle1 = setServoAngle(180 - formula(xMassPosition1, yMassPosition1, bigRadius, radiusServo, distance), infoServo1);
+        var angle2 = setServoAngle(180 - formula(xMassPosition2, yMassPosition2, bigRadius, radiusServo, distance), infoServo2);
+        var angle3 = setServoAngle(180 - formula(xMassPosition3, yMassPosition3, bigRadius, radiusServo, distance), infoServo3);
 
         console.log(angleCenter, angle1, angle2, angle3);
 
