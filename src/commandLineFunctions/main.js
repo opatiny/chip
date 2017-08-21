@@ -30,10 +30,6 @@ debug('functions required');
 board.on('ready', async function () {
     debug('Connected');
 
-    const {servo1, servo2, servo3} = require('./servoPins.js');
-    debug('servos initialized');
-
-
     function grab(flag) {
         let index = process.argv.indexOf(flag);
         return (index === -1) ? undefined : process.argv[index + 1];

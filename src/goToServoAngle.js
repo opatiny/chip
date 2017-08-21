@@ -3,7 +3,7 @@
 
 var five = require('johnny-five');
 var chipio = require('chip-io');
-var delay = require('delay');
+
 
 var board = new five.Board({
     io: new chipio()
@@ -47,22 +47,22 @@ board.on('ready', function () {
     }
 
 
-    if (angle) {
+    if (servoAngle) {
         servo1.to(servoAngle);
         servo2.to(servoAngle);
         servo3.to(servoAngle);
         console.log(`Values of the servo input angles are ${servoAngle} degrees.`);
     }
 
-    if (angle1) {
+    if (servoAngle1) {
         servo1.to(servoAngle1);
         console.log(`Servo input value of angle1 is ${servoAngle1} degrees.`);
     }
-    if (angle2) {
+    if (servoAngle2) {
         servo2.to(servoAngle2);
         console.log(`Servo input value of angle2 is ${servoAngle2} degrees.`);
     }
-    if (angle3) {
+    if (servoAngle3) {
         servo3.to(servoAngle3);
         console.log(`Servo input value of angle3 is ${servoAngle3} degrees.`);
     }

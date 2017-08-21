@@ -1,4 +1,3 @@
-var debug = require('debug')('tm:circle');
 const delay = require('delay');
 const {servo1, servo2, servo3} = require('./servoPins.js');
 
@@ -11,7 +10,6 @@ async function spiral(numberSpires) {
     const radiusServo = require('./systemParameters3.js').radiusServo; // rayon défini par l'axe du servo en [mm]
     const bigRadius = require('./systemParameters3.js').bigRadius; // distance between center of cylinder and center of servo [mm]
     const distance = require('./systemParameters3.js').distance; // distance between point on center circle of cylinder and end of servo axis [mm]
-    const cylinderRadius = require('./systemParameters3.js').cylinderRadius; // radius of the cylinder in [mm]
     const radiusCenter = require('./systemParameters3.js').radiusServo - 10; // maximal possible radius with cylinderPrototype2
 
     // parameters that depend on the servo characteristics

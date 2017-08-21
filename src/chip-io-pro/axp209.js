@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 var events = require('events');
 var util = require('util');
 var i2cBus = require('i2c-bus');

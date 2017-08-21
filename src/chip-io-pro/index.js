@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 var util = require('util');
 
 var BoardIO = require('board-io');

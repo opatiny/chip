@@ -17,5 +17,3 @@ const radiusCenter = grab('--r'); // radius of the circle the mass runs on in [m
 
 console.log(radiusCenter);
 
-var goToPoint = require('./goToPoint.js');
-console.log('Functions required.');

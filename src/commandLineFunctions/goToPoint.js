@@ -10,7 +10,6 @@ async function goToPoint(xMassPosition, yMassPosition) {
     const radiusServo = require('./systemParameters3.js').radiusServo; // rayon défini par l'axe du servo en [mm]
     const bigRadius = require('./systemParameters3.js').bigRadius; // distance between center of cylinder and center of servo [mm]
     const distance = require('./systemParameters3.js').distance; // distance between point on center circle of cylinder and end of servo axis [mm]
-    const cylinderRadius = require('./systemParameters3.js').cylinderRadius; // radius of the cylinder in [mm]
 
     // parameters that depend on the servo characteristics
     const infoServo1 = require('./systemParameters3').infoServo1; // parameters of the angles of servo1

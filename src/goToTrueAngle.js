@@ -3,7 +3,6 @@
 
 var five = require('johnny-five');
 var chipio = require('chip-io');
-var delay = require('delay');
 
 var board = new five.Board({
     io: new chipio()

@@ -2,7 +2,7 @@
 
 
 // servo1, servo2, servo3 and delay are parameters of the variable because it was the only way to put them in the function.
-
+const debug = require('debug')('tm:distance');
 const delay = require('delay');
 const {servo1, servo2, servo3} = require('./servoPins.js');
 
