@@ -1,5 +1,6 @@
-
 var pro = false;
+var cylinderPrototype = 2;
+
 
 var ChipIO;
 var servoPins;
@@ -12,10 +13,8 @@ if (pro) {
     servoPins = [15, 14, 13];
 }
 
-
 module.exports = {
     ChipIO,
-    servoPins
+    servoPins,
+    cylinderPrototype: require('./prefs/cylinderPrototype'+cylinderPrototype)
 };
-
-console.log(servoPins, ChipIO);
