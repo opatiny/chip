@@ -6,6 +6,9 @@
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
+    "eslint": "eslint src",
+    "eslint-fix": "npm run eslint -- --fix",
+    "test-travis": "eslint src && jest --coverage && codecov",
     "xy": "node src/servoControl/goToPoint.js",
     "command": "node /src/commandLineFunctions/main.js"
   },
@@ -20,10 +23,14 @@
     "debug": "^2.6.8",
     "delay": "^2.0.0",
     "ease-component": "^1.0.0",
-    "johnny-five": "^0.11.3",
+    "johnny-five": "^0.11.5",
     "nan": "^2.6.2"
   },
   "devDependencies": {
+    "codecov": "^2.3.0",
+    "eslint": "^4.1.1",
+    "eslint-config-cheminfo": "^1.8.0",
+    "eslint-plugin-no-only-tests": "^2.0.0",
     "jest": "^20.0.4"
   }
 }
