@@ -16,10 +16,6 @@ function formula(xMassPosition, yMassPosition, bigRadius, radiusServo, distance)
 
     // a is the x component of a point situated on the circle described by the end of the servos axis, this function returns two values on the circle (a1, a2), but only one is correct.
 
-    var delta = x ** 2 + y ** 2 + s ** 2 - d ** 2 - R ** 2;
-
-    // a is the x component of a point situated on the circle described by the end of the servos axis, this function returns two values on the circle (a1, a2), but only one is correct.
-
     var root = 4 * ( y**2 * R**2 - R * (R - x) * delta + y**2 * (s**2 - R**2) + (s**2 - R**2) * (R - x)**2) - delta**2;
 
     var a1 = ( 2 * y ** 2 * R - (R - x) * delta + y * Math.sqrt( root )) / ( 2 * (y**2 + (R - x)**2) );
@@ -28,7 +24,7 @@ function formula(xMassPosition, yMassPosition, bigRadius, radiusServo, distance)
     // console.log(a1,a2);
 
     var a;
-    if ((y > 0) || (y = 0)) {
+    if ((y > 0) || (y === 0)) {
         a = Math.max(a1, a2);
     } else {
         a = Math.min(a1, a2);
