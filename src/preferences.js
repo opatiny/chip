@@ -16,5 +16,5 @@ if (pro) {
 module.exports = {
     ChipIO,
     servoPins,
-    cylinderPrototype: require('./prefs/cylinderPrototype'+cylinderPrototype)
+    cylinderPrototype: require('./prefs/cylinderPrototype' + cylinderPrototype)
 };
