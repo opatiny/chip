@@ -10,7 +10,8 @@
     "eslint-fix": "npm run eslint -- --fix",
     "test-travis": "eslint src && jest --coverage && codecov",
     "xy": "node src/servoControl/goToPoint.js",
-    "command": "node /src/commandLineFunctions/main.js"
+    "command": "node src/commandLineFunctions/main.js",
+    "httpd": "node src/ws/server.js"
   },
   "author": "opatiny",
   "license": "ISC",
@@ -23,8 +24,12 @@
     "debug": "^2.6.8",
     "delay": "^2.0.0",
     "ease-component": "^1.0.0",
+    "express": "^4.15.4",
+    "http": "0.0.0",
     "johnny-five": "^0.11.5",
-    "nan": "^2.6.2"
+    "nan": "^2.6.2",
+    "path": "^0.12.7",
+    "ws": "^3.1.0"
   },
   "devDependencies": {
     "codecov": "^2.3.0",
