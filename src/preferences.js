@@ -1,5 +1,5 @@
-var pro = false;
-var cylinderPrototype = 2;
+var pro = true;
+var cylinderPrototype = 3;
 
 
 var ChipIO;

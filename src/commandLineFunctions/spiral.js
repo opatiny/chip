@@ -1,5 +1,9 @@
+const debug = require('debug')('tm:spiral');
+
 const delay = require('delay');
 const {servo1, servo2, servo3} = require('./servoPins.js');
+
+const cylinderPrototype = require('../preferences').cylinderPrototype;
 
 // function that returns the values of servos angles to move on a spiral with the number of rotations as a parameter (-- spires)
 
@@ -7,19 +11,23 @@ const {servo1, servo2, servo3} = require('./servoPins.js');
 async function spiral(numberSpires) {
 
 
-    const radiusServo = require('./systemParameters3.js').radiusServo; // rayon défini par l'axe du servo en [mm]
-    const bigRadius = require('./systemParameters3.js').bigRadius; // distance between center of cylinder and center of servo [mm]
-    const distance = require('./systemParameters3.js').distance; // distance between point on center circle of cylinder and end of servo axis [mm]
-    const radiusCenter = require('./systemParameters3.js').radiusServo - 10; // maximal possible radius with cylinderPrototype2
+    const radiusServo = cylinderPrototype.radiusServo; // rayon défini par l'axe du servo en [mm]
+    const bigRadius = cylinderPrototype.bigRadius; // distance between center of cylinder and center of servo [mm]
+    const distance = cylinderPrototype.distance; // distance between point on center circle of cylinder and end of servo axis [mm]
+    const radiusCenter = cylinderPrototype.radiusServo - 10; // maximal possible radius with cylinderPrototype2
 
     // parameters that depend on the servo characteristics
-    const infoServo1 = require('./systemParameters3').infoServo1; // parameters of the angles of servo1
-    const infoServo2 = require('./systemParameters3').infoServo2; // parameters of the angles of servo2
-    const infoServo3 = require('./systemParameters3').infoServo3; // parameters of the angles of servo3
-    const setServoAngle = require('./systemParameters3').setServoAngle; // function transforming angles of the servos setServoAngle()
+    const infoServo1 = cylinderPrototype.infoServo1; // parameters of the angles of servo1
+    const infoServo2 = cylinderPrototype.infoServo2; // parameters of the angles of servo2
+    const infoServo3 = cylinderPrototype.infoServo3; // parameters of the angles of servo3
+    const setServoAngle = cylinderPrototype.setServoAngle; // function transforming angles of the servos setServoAngle()
 
+    debug('Parameters required');
 
     var formula = require('./returnAngleFormula.js');
+
+    debug('Formula required');
+
 
     console.log(numberSpires);
 

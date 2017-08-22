@@ -49,10 +49,10 @@ function setServoAngle(angle, info) {
 
 module.exports = {
     radiusServo,
-    maxRadiusCenter,
     bigRadius,
     distance,
     cylinderRadius,
+    maxRadiusCenter,
     infoServo1,
     infoServo2,
     infoServo3,
