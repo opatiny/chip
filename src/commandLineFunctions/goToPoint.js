@@ -1,5 +1,5 @@
-// function that returns the values of servos angles to go to a specific point
-// servo1, servo2, servo3 and delay are parameters of the variable because it was the only way to put them in the function.
+'use strict'
+// code that moves the mass to an x,y position
 const debug = require('debug')('tm:point');
 
 const delay = require('delay');
@@ -42,7 +42,7 @@ async function goToPoint(xMassPosition, yMassPosition) {
     var angle3 = setServoAngle(180 - formula(xMassPosition3, yMassPosition3, bigRadius, radiusServo, distance), infoServo3);
 
 
-    console.log(xMassPosition, yMassPosition, angle1, angle2, angle3);
+    debug(xMassPosition, yMassPosition, angle1, angle2, angle3);
 
     servo1.to(angle1);
     servo2.to(angle2);

@@ -1,27 +1,26 @@
+'use strict'
+// code allowing the mass to move to a certain angle, the radius of the circle of the mass being a parameter
 const debug = require('debug')('tm:angle');
 const delay = require('delay');
 const {servo1, servo2, servo3} = require('./servoPins.js');
 
 const cylinderPrototype = require('../preferences').cylinderPrototype;
 
-// function that returns the values of servos angles to move on a circle of given radius
-
-// servo1, servo2, servo3 and delay are parameters of the variable because it was the only way to put them in the function.
 async function goToAngle(angleCenter, radiusCenter) {
 
     const maxRadiusCenter = cylinderPrototype.maxRadiusCenter; // radius of the cylinder in [mm]
     if (radiusCenter === 'max') {
         radiusCenter = maxRadiusCenter;
     }
-    debug('radiusCenter' + radiusCenter);
+    debug('radiusCenter' + '\t' + radiusCenter);
 
     const radiusServo = cylinderPrototype.radiusServo; // rayon défini par l'axe du servo en [mm]
     const bigRadius = cylinderPrototype.bigRadius; // distance between center of cylinder and center of servo [mm]
     const distance = cylinderPrototype.distance; // distance between point on center circle of cylinder and end of servo axis [mm]
 
 
-    const delayValue = 400 / 30; // the time to wait between to values of the angles in [ms]
-    const step = 1; // the number of degrees that are added to angleCenter every time the servos move
+    const delayValue = cylinderPrototype.delayValue; // the time to wait between to values of the angles in [ms]
+    const step = cylinderPrototype.step; // the number of degrees that are added to angleCenter every time the servos move
 
     // parameters that depend on the servo characteristics
     const infoServo1 = cylinderPrototype.infoServo1; // parameters of the angles of servo1
@@ -62,8 +61,6 @@ async function goToAngle(angleCenter, radiusCenter) {
 
 
     await delay(delayValue);
-
-    console.log('end');
 
 }
 

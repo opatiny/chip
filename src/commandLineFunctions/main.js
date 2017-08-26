@@ -1,9 +1,9 @@
 'use strict'
 /* This document will require all the different functions that we developed, like making to rotations,
- going to a specific point, moving three meters forward,... It uses command line arguments
+ going to a specific point, moving three meters forward or backwards,... It uses command line arguments
  (https://www.youtube.com/watch?v=yTJ9OJmbiHU).
 
- TO run the code just use
+ To run the code just use
  node main --? numberYouWant --? otherNumberYouWant
 */
 
@@ -81,6 +81,9 @@ board.on('ready', async function () {
         console.log('You are in goToAngle');
         await goToAngle(angleCenter, radiusCenter);
     }
+
+    debug('end of code');
+    process.exit(0);
 
 });
 

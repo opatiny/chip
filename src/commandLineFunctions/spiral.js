@@ -1,3 +1,6 @@
+'use strict'
+// code that allows the mass to draw a spiral, from the biggest radius to a radius of 0
+
 const debug = require('debug')('tm:spiral');
 
 const delay = require('delay');
@@ -5,9 +8,6 @@ const {servo1, servo2, servo3} = require('./servoPins.js');
 
 const cylinderPrototype = require('../preferences').cylinderPrototype;
 
-// function that returns the values of servos angles to move on a spiral with the number of rotations as a parameter (-- spires)
-
-// servo1, servo2, servo3 and delay are parameters of the variable because it was the only way to put them in the function.
 async function spiral(numberSpires) {
 
 

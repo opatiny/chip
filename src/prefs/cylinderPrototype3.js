@@ -1,6 +1,11 @@
 
 // parameters of cylinderPrototype3
 // do not forget that angles are in rad in javascript!! (default)
+
+const delayValue = 400 / 30; // the time to wait between to values of the angles in [ms]
+const step = 1; // the number of degrees that are added to angleCenter every time the servos move
+
+
 const radiusServo = 50; // rayon défini par l'axe du servo en [mm]
 const maxRadiusCenter = 40; // rayon défini par l'axe du servo en [mm]
 
@@ -48,6 +53,8 @@ function setServoAngle(angle, info) {
 // console.log( setServoAngle(165, infoServo1) );
 
 module.exports = {
+    delayValue,
+    step,
     radiusServo,
     bigRadius,
     distance,

@@ -1,7 +1,6 @@
-// function that returns the values of servos angles to move on a circle of given radius
+'use strict'
+// code that allows to indicate what distance the cylinder should move, having related directly the number of rotations of the mass and of the cylinder (can be totally wrong)
 
-
-// servo1, servo2, servo3 and delay are parameters of the variable because it was the only way to put them in the function.
 const debug = require('debug')('tm:distance');
 const delay = require('delay');
 const {servo1, servo2, servo3} = require('./servoPins.js');
@@ -10,6 +9,9 @@ const cylinderPrototype = require('../preferences').cylinderPrototype;
 
 
 async function moveDistance(length) {
+
+    const delayValue = cylinderPrototype.delayValue; // the time to wait between to values of the angles in [ms]
+    const step = cylinderPrototype.step; // the number of degrees that are added to angleCenter every time the servos move
 
 
     // parameters that depend on the system parameters
@@ -42,7 +44,7 @@ async function moveDistance(length) {
     debug({radiusServo: radiusServo, radiusCenter: radiusCenter, P: 2 * Math.PI * cylinderRadius, angle: angle});
 
 
-    for (var angleCenter = 0; angleCenter < angle; angleCenter += 5) {
+    for (var angleCenter = 0; angleCenter < angle; angleCenter += step) {
         var r = radiusCenter;
 
         var xMassPosition1 = r * Math.cos(angleCenter / 180 * Math.PI);
@@ -64,7 +66,7 @@ async function moveDistance(length) {
         servo2.to(angle2);
         servo3.to(angle3);
 
-        await delay(50);
+        await delay(delayValue);
     }
 
 
