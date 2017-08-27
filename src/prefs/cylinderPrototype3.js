@@ -2,7 +2,7 @@
 // parameters of cylinderPrototype3
 // do not forget that angles are in rad in javascript!! (default)
 
-const delayValue = 400 / 30; // the time to wait between to values of the angles in [ms]
+const delayValue = 800 / 30; // the time to wait between to values of the angles in [ms]
 const step = 1; // the number of degrees that are added to angleCenter every time the servos move
 
 

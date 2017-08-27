@@ -1,9 +1,9 @@
 'use strict'
-// function that allows to make the mass move on a circle of given radius, a given number of times, quarters of rotations are allowed.
+// function that allows to make the mass move on a circle of given radius, a given number of times, parts of rotations are allowed.
 
 const debug = require('debug')('tm:circle');
 const delay = require('delay');
-const {servo1, servo2, servo3} = require('./servoPins.js');
+const {servo1, servo2, servo3} = require('../servoPins.js');
 
 const cylinderPrototype = require('../preferences').cylinderPrototype;
 
@@ -31,7 +31,7 @@ async function movingOnCircle(radiusCenter, numberRotation = Infinity) {
     const infoServo3 = cylinderPrototype.infoServo3; // parameters of the angles of servo3
     const setServoAngle = cylinderPrototype.setServoAngle; // function transforming angles of the servos setServoAngle()
 
-    const formula = require('./returnAngleFormula.js');
+    const formula = require('../returnAngleFormula.js');
 
     if (numberRotation >= 0) {
 

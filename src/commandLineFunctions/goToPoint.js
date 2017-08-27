@@ -3,7 +3,7 @@
 const debug = require('debug')('tm:point');
 
 const delay = require('delay');
-const {servo1, servo2, servo3} = require('./servoPins.js');
+const {servo1, servo2, servo3} = require('../servoPins.js');
 
 const cylinderPrototype = require('../preferences').cylinderPrototype;
 
@@ -22,7 +22,7 @@ async function goToPoint(xMassPosition, yMassPosition) {
 
     debug('Parameters required');
 
-    var formula = require('./returnAngleFormula.js');
+    var formula = require('../returnAngleFormula.js');
 
     debug('Formula required');
 

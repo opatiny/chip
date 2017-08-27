@@ -5,7 +5,7 @@ var Five = require('johnny-five');
 
 var {
     ChipIO
-} = require('./preferences');
+} = require('../preferences');
 
 
 var board = new Five.Board({

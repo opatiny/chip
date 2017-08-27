@@ -1,26 +1,27 @@
 'use strict'
-// code allowing the mass to move to a certain angle, the radius of the circle of the mass being a parameter
-const debug = require('debug')('tm:angle');
+// function that allows to make the mass move to a certain angle (angleCenter) on a circle of given radius.
+
+const debug = require('debug')('tm:constantPos');
 const delay = require('delay');
 const {servo1, servo2, servo3} = require('../servoPins.js');
 
 const cylinderPrototype = require('../preferences').cylinderPrototype;
 
-async function goToAngle(angleCenter, radiusCenter) {
+async function constantPositionFunction(radiusCenter, angleCenter) {
 
     const maxRadiusCenter = cylinderPrototype.maxRadiusCenter; // radius of the cylinder in [mm]
     if (radiusCenter === 'max') {
         radiusCenter = maxRadiusCenter;
     }
+
     debug('radiusCenter' + '\t' + radiusCenter);
 
+    // parameters that depend on the prototype you use
     const radiusServo = cylinderPrototype.radiusServo; // rayon défini par l'axe du servo en [mm]
     const bigRadius = cylinderPrototype.bigRadius; // distance between center of cylinder and center of servo [mm]
     const distance = cylinderPrototype.distance; // distance between point on center circle of cylinder and end of servo axis [mm]
 
-
-    const delayValue = cylinderPrototype.delayValue; // the time to wait between to values of the angles in [ms]
-    const step = cylinderPrototype.step; // the number of degrees that are added to angleCenter every time the servos move
+    const delayValue = 25; // the time to wait between to values of the angles in [ms]
 
     // parameters that depend on the servo characteristics
     const infoServo1 = cylinderPrototype.infoServo1; // parameters of the angles of servo1
@@ -29,7 +30,6 @@ async function goToAngle(angleCenter, radiusCenter) {
     const setServoAngle = cylinderPrototype.setServoAngle; // function transforming angles of the servos setServoAngle()
 
     const formula = require('../returnAngleFormula.js');
-
 
     let r = radiusCenter;
 
@@ -43,14 +43,12 @@ async function goToAngle(angleCenter, radiusCenter) {
     let yMassPosition3 = r * Math.sin((angleCenter + 240) / 180 * Math.PI);
     // debug('step2');
 
-
     // console.log(xMassPosition1, yMassPosition1, xMassPosition2, yMassPosition2, xMassPosition3);
 
     let angle1 = setServoAngle(180 - formula(xMassPosition1, yMassPosition1, bigRadius, radiusServo, distance), infoServo1);
     let angle2 = setServoAngle(180 - formula(xMassPosition2, yMassPosition2, bigRadius, radiusServo, distance), infoServo2);
     let angle3 = setServoAngle(180 - formula(xMassPosition3, yMassPosition3, bigRadius, radiusServo, distance), infoServo3);
     // debug('step3');
-
 
     debug(angleCenter + '\t' + angle1 + '\t' + angle2 + '\t' + angle3);
 
@@ -59,9 +57,9 @@ async function goToAngle(angleCenter, radiusCenter) {
     servo3.to(angle3);
     // debug('step4');
 
-
     await delay(delayValue);
 
 }
 
-module.exports = goToAngle;
+module.exports = constantPositionFunction;
+

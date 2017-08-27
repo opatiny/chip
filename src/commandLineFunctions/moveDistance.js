@@ -3,7 +3,7 @@
 
 const debug = require('debug')('tm:distance');
 const delay = require('delay');
-const {servo1, servo2, servo3} = require('./servoPins.js');
+const {servo1, servo2, servo3} = require('../servoPins.js');
 
 const cylinderPrototype = require('../preferences').cylinderPrototype;
 
@@ -29,7 +29,7 @@ async function moveDistance(length) {
     debug('Parameters required');
 
 
-    var formula = require('./returnAngleFormula.js');
+    var formula = require('../returnAngleFormula.js');
 
     debug('Formula required');
 
