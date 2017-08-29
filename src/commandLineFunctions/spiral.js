@@ -1,7 +1,7 @@
 'use strict'
 // code that allows the mass to draw a spiral, from the biggest radius to a radius of 0
 
-const debug = require('debug')('tm:spiral');
+const debug = require('debug')('cl:spiral');
 
 const delay = require('delay');
 const {servo1, servo2, servo3} = require('../servoPins.js');

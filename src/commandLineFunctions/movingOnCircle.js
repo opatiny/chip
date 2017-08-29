@@ -1,7 +1,7 @@
 'use strict'
 // function that allows to make the mass move on a circle of given radius, a given number of times, parts of rotations are allowed.
 
-const debug = require('debug')('tm:circle');
+const debug = require('debug')('cl:circle');
 const delay = require('delay');
 const {servo1, servo2, servo3} = require('../servoPins.js');
 

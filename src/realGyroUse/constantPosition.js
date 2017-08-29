@@ -1,13 +1,17 @@
 'use strict'
 // function that allows to make the mass move to a certain angle (angleCenter) on a circle of given radius.
 
-const debug = require('debug')('tm:constantPos');
+const debug = require('debug')('ru:constantPos');
 const delay = require('delay');
+debug('test');
+
 const {servo1, servo2, servo3} = require('../servoPins.js');
+debug('servos required');
 
-const cylinderPrototype = require('../preferences').cylinderPrototype;
+const cylinderPrototype = require('../preferences.js').cylinderPrototype;
+debug('Function, parameters and packages required');
 
-async function constantPositionFunction(radiusCenter, angleCenter) {
+async function constantPosition(radiusCenter, angleCenter) {
 
     const maxRadiusCenter = cylinderPrototype.maxRadiusCenter; // radius of the cylinder in [mm]
     if (radiusCenter === 'max') {
@@ -16,12 +20,12 @@ async function constantPositionFunction(radiusCenter, angleCenter) {
 
     debug('radiusCenter' + '\t' + radiusCenter);
 
+    const delayValue = 25; // the time to wait between to values of the angles in [ms]
+
     // parameters that depend on the prototype you use
     const radiusServo = cylinderPrototype.radiusServo; // rayon défini par l'axe du servo en [mm]
     const bigRadius = cylinderPrototype.bigRadius; // distance between center of cylinder and center of servo [mm]
     const distance = cylinderPrototype.distance; // distance between point on center circle of cylinder and end of servo axis [mm]
-
-    const delayValue = 25; // the time to wait between to values of the angles in [ms]
 
     // parameters that depend on the servo characteristics
     const infoServo1 = cylinderPrototype.infoServo1; // parameters of the angles of servo1
@@ -61,5 +65,5 @@ async function constantPositionFunction(radiusCenter, angleCenter) {
 
 }
 
-module.exports = constantPositionFunction;
+module.exports = constantPosition;
 

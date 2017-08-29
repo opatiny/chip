@@ -1,31 +1,22 @@
 'use strict'
-const debug = require('debug')('tm:main');
+const debug = require('debug')('ru:main');
 const delay = require('delay');
 
 var Five = require('johnny-five');
-var {
-    ChipIO
-} = require('../preferences');
+var ChipIO = require('../preferences.js').ChipIO;
+debug('Packages required');
 
-var circleFunction = require('./constantPositionFunction');
+
+var gyroToAngle = require('./gyroToAngle');
+
+debug('Function required');
 
 var board = new Five.Board({
     io: new ChipIO()
 });
+debug('board created');
 
 board.on('ready', async function () {
-
-    var accelerometer = new Five.Accelerometer({
-        controller: 'MPU6050',
-        sensitivity: 16384 // optional
-    });
-
-    accelerometer.on('change', function () {
-        var result = {
-            inclination: this.inclination
-        };
-        debug('inclination' + '\t' + result.inclination);
-    });
 
     // the function allowing command line arguments
     function grab(flag) {
@@ -37,15 +28,15 @@ board.on('ready', async function () {
     const radius = grab('--r'); // radius of the circle the mass runs on in [mm]
     const direction = grab('--d'); // direction in which you go (backwards: 'b' or forwards: 'f')
 
-    debug(radius, direction);
+    debug('radius', radius + '\t' + 'direction', direction);
 
     if (!(radius && direction)) {
-        console.log('No data to execute.');
+        console.log('No data to execute');
     }
 
-    if (angleCenter && radiusCenter) {
-        console.log('You are in goToAngle');
-        await circleFunction(radiusCenter, direction);
+    if (radius && direction) {
+        console.log('You are in constantPosition');
+        await gyroToAngle(radius, direction);
     }
 
     debug('end of code');

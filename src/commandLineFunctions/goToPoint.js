@@ -1,6 +1,6 @@
 'use strict'
 // code that moves the mass to an x,y position
-const debug = require('debug')('tm:point');
+const debug = require('debug')('cl:point');
 
 const delay = require('delay');
 const {servo1, servo2, servo3} = require('../servoPins.js');

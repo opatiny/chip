@@ -1,7 +1,7 @@
 'use strict'
 // code that allows to indicate what distance the cylinder should move, having related directly the number of rotations of the mass and of the cylinder (can be totally wrong)
 
-const debug = require('debug')('tm:distance');
+const debug = require('debug')('cl:distance');
 const delay = require('delay');
 const {servo1, servo2, servo3} = require('../servoPins.js');
 

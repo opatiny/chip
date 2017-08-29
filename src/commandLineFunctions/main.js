@@ -7,8 +7,7 @@
  node main --? numberYouWant --? otherNumberYouWant
 */
 
-
-var debug = require('debug')('tm:main');
+var debug = require('debug')('cl:main');
 var Five = require('johnny-five');
 var ChipIO = require('../preferences.js').ChipIO;
 debug('chipio required');

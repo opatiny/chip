@@ -1,5 +1,5 @@
 const five = require('johnny-five');
-const servoPins = require('../preferences').servoPins;
+const servoPins = require('./preferences.js').servoPins;
 
 let defaultServo = {
     address: 0x40,
