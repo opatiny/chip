@@ -2,14 +2,14 @@
 // function that allows to make the mass move to a certain angle (angleCenter) on a circle of given radius.
 
 const Five = require('johnny-five');
-const debug = require('debug')('ru:GYtoAngle');
+const debug = require('debug')('ru:gyroToAngle');
 const delay = require('delay');
 debug('Packages required');
 
-//var constantPosition = require('./constantPosition.js');
-debug('Function required');
+// var constantPosition = require('./constantPosition.js');
+debug('constantPosition required');
 
-function gyroToAngle(radiusCenter, direction) {
+async function gyroToAngle(radiusCenter, direction) {
 
     var accelerometer = new Five.Accelerometer({
         controller: 'MPU6050',

@@ -3,13 +3,13 @@
 
 const debug = require('debug')('ru:constantPos');
 const delay = require('delay');
-debug('test');
 
 const {servo1, servo2, servo3} = require('../servoPins.js');
 debug('servos required');
 
 const cylinderPrototype = require('../preferences.js').cylinderPrototype;
 debug('Function, parameters and packages required');
+
 
 async function constantPosition(radiusCenter, angleCenter) {
 
@@ -54,7 +54,7 @@ async function constantPosition(radiusCenter, angleCenter) {
     let angle3 = setServoAngle(180 - formula(xMassPosition3, yMassPosition3, bigRadius, radiusServo, distance), infoServo3);
     // debug('step3');
 
-    debug(angleCenter + '\t' + angle1 + '\t' + angle2 + '\t' + angle3);
+    console.log(angleCenter + '\t' + angle1 + '\t' + angle2 + '\t' + angle3);
 
     servo1.to(angle1);
     servo2.to(angle2);

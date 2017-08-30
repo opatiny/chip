@@ -6,15 +6,13 @@ var Five = require('johnny-five');
 var ChipIO = require('../preferences.js').ChipIO;
 debug('Packages required');
 
-
-var gyroToAngle = require('./gyroToAngle');
-
-debug('Function required');
-
 var board = new Five.Board({
     io: new ChipIO()
 });
 debug('board created');
+
+var gyroToAngle = require('./gyroToAngle.js');
+debug('gyroToAngle required');
 
 board.on('ready', async function () {
 
@@ -35,7 +33,7 @@ board.on('ready', async function () {
     }
 
     if (radius && direction) {
-        console.log('You are in constantPosition');
+        console.log('You are in gyroToAngle');
         await gyroToAngle(radius, direction);
     }
 

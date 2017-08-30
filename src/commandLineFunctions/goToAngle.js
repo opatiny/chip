@@ -12,7 +12,7 @@ async function goToAngle(angleCenter, radiusCenter) {
     if (radiusCenter === 'max') {
         radiusCenter = maxRadiusCenter;
     }
-    debug('radiusCenter' + '\t' + radiusCenter);
+    debug('radiusCenter:' + '\t' + radiusCenter);
 
     const radiusServo = cylinderPrototype.radiusServo; // rayon défini par l'axe du servo en [mm]
     const bigRadius = cylinderPrototype.bigRadius; // distance between center of cylinder and center of servo [mm]
@@ -29,6 +29,7 @@ async function goToAngle(angleCenter, radiusCenter) {
     const setServoAngle = cylinderPrototype.setServoAngle; // function transforming angles of the servos setServoAngle()
 
     const formula = require('../returnAngleFormula.js');
+    debug('angleFormula and parameters required');
 
 
     let r = radiusCenter;
@@ -57,7 +58,7 @@ async function goToAngle(angleCenter, radiusCenter) {
     servo1.to(angle1);
     servo2.to(angle2);
     servo3.to(angle3);
-    // debug('step4');
+    debug('servos went to angles');
 
 
     await delay(delayValue);

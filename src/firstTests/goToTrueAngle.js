@@ -1,46 +1,30 @@
 // http://johnny-five.io/examples/servo-PCA9685/
 // control of one servo, the code brings it to a given angle irl (degrees)
 
-var five = require('johnny-five');
-var chipio = require('chip-io');
+const debug = require('debug')('ft:trueAngle');
+const delay = require('delay');
 
-var board = new five.Board({
-    io: new chipio()
+var Five = require('johnny-five');
+var ChipIO = require('../preferences.js').ChipIO;
+const cylinderPrototype = require('../preferences').cylinderPrototype;
+
+// Initialize the servo instance
+const {servo1, servo2, servo3} = require('../servoPins.js');
+
+debug('Packages required')
+
+var board = new Five.Board({
+    io: new ChipIO()
 });
 
 board.on('ready', function () {
     console.log('Connected');
 
-    // Initialize the servo instance
-    var servo1 = new five.Servo({
-        address: 0x40,
-        controller: 'PCA9685',
-        pin: 15
-    });
-
-    var servo2 = new five.Servo({
-        address: 0x40,
-        controller: 'PCA9685',
-        pin: 14
-    });
-
-    var servo3 = new five.Servo({
-        address: 0x40,
-        controller: 'PCA9685',
-        pin: 13
-    });
-
-    servo2.tuning = {
-
-
-    };
-
-
     // parameters that depend on the servo characteristics
-    const infoServo1 = require('./commandLineFunctions/systemParameters3').infoServo1; // parameters of the angles of servo1
-    const infoServo2 = require('./commandLineFunctions/systemParameters3').infoServo2; // parameters of the angles of servo2
-    const infoServo3 = require('./commandLineFunctions/systemParameters3').infoServo3; // parameters of the angles of servo3
-    const setServoAngle = require('./commandLineFunctions/systemParameters3').setServoAngle; // function transforming angles of the servos setServoAngle()
+    const infoServo1 = cylinderPrototype.infoServo1; // parameters of the angles of servo1
+    const infoServo2 = cylinderPrototype.infoServo2; // parameters of the angles of servo2
+    const infoServo3 = cylinderPrototype.infoServo3; // parameters of the angles of servo3
+    const setServoAngle = cylinderPrototype.setServoAngle; // function transforming angles of the servos setServoAngle()
 
 
     const trueAngle = grab('--a'); // general angle of all the servos in degree or
