@@ -10,10 +10,9 @@ debug('servos required');
 const cylinderPrototype = require('../preferences.js').cylinderPrototype;
 debug('Function, parameters and packages required');
 
-
 async function constantPosition(radiusCenter, angleCenter) {
 
-    const maxRadiusCenter = cylinderPrototype.maxRadiusCenter; // radius of the cylinder in [mm]
+    const maxRadiusCenter = cylinderPrototype.maxRadiusCenter; // max radius in [mm]
     if (radiusCenter === 'max') {
         radiusCenter = maxRadiusCenter;
     }

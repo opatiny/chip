@@ -6,17 +6,22 @@ const debug = require('debug')('ru:gyroToAngle');
 const delay = require('delay');
 debug('Packages required');
 
-// var constantPosition = require('./constantPosition.js');
+var constantPosition = require('./constantPosition.js');
 debug('constantPosition required');
 
 async function gyroToAngle(radiusCenter, direction) {
+
+    debug('Hellloooooo');
 
     var accelerometer = new Five.Accelerometer({
         controller: 'MPU6050',
         sensitivity: 16384 // optional
     });
+    debug('Hellloooooo agaaaaain');
+
 
     accelerometer.on('change', async function () {
+
         const result = {
             inclination: this.inclination
         };
@@ -31,7 +36,7 @@ async function gyroToAngle(radiusCenter, direction) {
             inclination = 360 - Math.abs(inclination)
         }
 
-        var baseAngle;
+        var baseAngle; // the angle of the gyro that corresponds to the balanced position of the cylinder for a certain theta
 
         if (48 <= inclination < 137) {
              baseAngle = (inclination - 48)*90 / (137 - 48)
