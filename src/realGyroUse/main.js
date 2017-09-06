@@ -1,5 +1,8 @@
+// code that allows to keep the mass in the center at a horizontal position relatively to the center of the cylinder.
+// The radius of the circle the mass is on (radiusCenter, --r) and if it goes backwards (--d b) or forwards (--d f) are parameters.
+
 'use strict'
-const debug = require('debug')('ru:test'); // ru for real use
+const debug = require('debug')('ru:main'); // ru for real use
 const delay = require('delay');
 
 var Five = require('johnny-five');
@@ -59,7 +62,7 @@ board.on('ready', async function () {
         } else {
             inclination = 360 - Math.abs(inclination)
         }
-        debug('corrected inclination' + '\t' + result.inclination);
+        debug('corrected inclination' + '\t' + inclination);
 
 
         var baseAngle; // the angle of the gyro that corresponds to the balanced position of the cylinder for a certain theta
@@ -94,9 +97,3 @@ board.on('ready', async function () {
 });
 
 
-/**
- * Created by opatiny on 8/29/17.
- */
-/**
- * Created by opatiny on 9/6/17.
- */
