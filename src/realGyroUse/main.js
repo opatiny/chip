@@ -18,9 +18,6 @@ debug('board created');
 var constantPosition = require('./constantPosition.js');
 debug('constantPosition required');
 
-const direction = 'b';
-const radiusCenter = 25;
-
 board.on('ready', async function () {
 
     // the function allowing command line arguments
@@ -32,10 +29,11 @@ board.on('ready', async function () {
     // your command line parameters
     const radiusCenter = grab('--r'); // radius of the circle the mass runs on in [mm]
     const direction = grab('--d'); // direction in which you go (backwards: 'b' or forwards: 'f')
+    const stable = grab('--stable'); // to enter the stable mode (--stable on)
 
     debug('radiusCenter', radiusCenter + '\t' + 'direction', direction);
 
-    if (!(radiusCenter && direction)) {
+    if (!(radiusCenter && direction) && !(stable && radiusCenter)) {
         console.log('No data to execute');
         process.exit(0);
     }
@@ -44,18 +42,31 @@ board.on('ready', async function () {
         controller: 'MPU6050',
         sensitivity: 16384 // optional
     });
-    debug('Hellloooooo agaaaaain');
+    debug('Accelerometer defined');
+
+    var counter = 0; // to count the number of changes
+    var inclinationLog = [0, 0];
+    var angleCenterLog = [0];
 
 
     accelerometer.on('change', async function () {
 
+
+        let newCounter = counter++;
+        //debug('counter' + '\t' + newCounter);
+        console.log('Number of changes detected: ' + newCounter);
+
         const result = {
             inclination: this.inclination
         };
-
-        debug('inclination' + '\t' + result.inclination);
-
         let inclination = result.inclination;
+        // debug('inclination' + '\t' + inclination);
+
+        inclinationLog = [inclinationLog[inclinationLog.length-1]]; // this allows to have the two last values of inclination
+        inclinationLog.push(inclination);
+        debug('inclination log' + '\t' + inclinationLog);
+
+
 
         if (inclination < 0) {
             inclination = Math.abs(inclination)
@@ -64,9 +75,10 @@ board.on('ready', async function () {
         }
         debug('corrected inclination' + '\t' + inclination);
 
-
         var baseAngle; // the angle of the gyro that corresponds to the balanced position of the cylinder for a certain theta
 
+        // code that allows to assign the angleCenter of the balanced position of the cylinder, for any value of the accelerometer.
+        // These assignations are based on cylinderPrototype3 and the particular position of the gyro on that prototype
         if (48 <= inclination < 137) {
             baseAngle = (inclination - 48) * 90 / (137 - 48)
         } else if (137 <= inclination < 222.5) {
@@ -76,19 +88,38 @@ board.on('ready', async function () {
         } else if (313 <= inclination < 48) {
             baseAngle = (inclination - 313) * 90 / (48 - 313) + 270
         }
-
         debug('baseAngle' + '\t' + baseAngle);
 
 
         var angleCenter;
 
-        if (direction === 'b') {
-            angleCenter = baseAngle - 90
-        } else {
-            angleCenter = baseAngle + 90
-        }
+        if (radiusCenter && direction) {
+            if (direction === 'b') {
+                angleCenter = baseAngle - 90
+            } else {
+                angleCenter = baseAngle + 90
+            }
 
-        debug('angleCenter' + '\t' + angleCenter);
+            debug('angleCenter' + '\t' + angleCenter);
+
+        } else if (stable === 'on') {
+            let previousAngleCenter = angleCenterLog[angleCenterLog.length-1];// this allows to have the last values of angleCenter
+            debug('previousAngleCenter' + '\t' + previousAngleCenter);
+
+            let inclinationDiff = inclinationLog[inclinationLog.length-1].toPrecision(4) - inclinationLog[inclinationLog.length-2].toPrecision(4);
+
+            if (inclinationDiff < 0) {
+                angleCenter = previousAngleCenter - 1
+            } else if (inclinationDiff === 0) {
+                angleCenter = previousAngleCenter
+            } else {
+                angleCenter = previousAngleCenter + 1
+            }
+            debug('angleCenter' + '\t' + angleCenter);
+
+            angleCenterLog.push(angleCenter);
+
+        }
 
 
         await constantPosition(radiusCenter, angleCenter);
