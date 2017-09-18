@@ -54,7 +54,7 @@ board.on('ready', async function () {
 
         let newCounter = counter++;
         //debug('counter' + '\t' + newCounter);
-        console.log('Number of changes detected: ' + newCounter);
+        debug('Number of changes detected: ' + newCounter);
 
         const result = {
             inclination: this.inclination
@@ -107,9 +107,13 @@ board.on('ready', async function () {
             debug('previousAngleCenter' + '\t' + previousAngleCenter);
 
             let inclinationDiff = inclinationLog[inclinationLog.length-1].toPrecision(4) - inclinationLog[inclinationLog.length-2].toPrecision(4);
+            debug('inclinationDiff ' + inclinationDiff);
+
+            // const maxInclinationDiff = 1.4; // we estimate what it could be to make the servos reaction proportional
+            const proportionalStep = inclinationDiff / 0.75;
 
             if (inclinationDiff < 0) {
-                angleCenter = previousAngleCenter - 1
+                angleCenter = previousAngleCenter -1
             } else if (inclinationDiff === 0) {
                 angleCenter = previousAngleCenter
             } else {

@@ -1,3 +1,6 @@
+// taken from: https://github.com/cheminfo-js/chip
+// this code allows to show the values of the accelerometer in a web page.
+
 var WebSocketServer = require('ws').Server;
 var express = require('express');
 var path = require('path');

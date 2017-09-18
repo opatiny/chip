@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1 id="myTitle">Cylinder control page <span id = "epoch"> epoch </span></h1>
+        <p>Click the <span id="controlButton">left button</span>  to start cylinder control, click the <span id="stabButton">right button</span> to run the stabilization programme.</p>
+        <!-- Creating buttons-->
+        <div style="text-align: center">
+            <button class="button">Control</button>
+            <button class="button button2">Stabilisation</button>
+        </div>
+
+        <p>Move the slider to modify the radius of the circle the mass is moving on, the negative values make the cylinder roll backwards.</p>
+        <input type="range" min="-40" max="40" step="1" id="mySlider" style="width: 500px" list="tickmarks">
+        <datalist id="tickmarks">
+            <option>-40</option>
+            <option>-30</option>
+            <option>-20</option>
+            <option>-10</option>
+            <option>0</option>
+            <option>10</option>
+            <option>20</option>
+            <option>30</option>
+            <option>40</option>
+        </datalist>
+        <p>
+            <div id="sliderValue" style="text-align: center"> Current radius value: 0</div>
+        </p>
+
+
+    </body>
+
+    <script>
+        document.getElementById('mySlider').addEventListener('input', function(event) {
+            console.log(event.target.value);
+            document.getElementById('sliderValue').innerHTML= 'Current radius value:' + '\t' + event.target.value;
+            sendObjectMessage(ws, {event: 'radiusSlider', value: event.target.value})
+        });
+
+        const ws = new WebSocket(document.location.origin.replace(/^http/,'ws')+'/ws'); // making path of websocket relative using regExp
+
+        ws.onopen = function open() {
+            sendObjectMessage(ws, {param1: 'bla', param2: '3 pt'})
+        };
+
+        ws.onmessage = function incoming(data) {
+            console.log(data);
+        };
+
+        window.setInterval( function() {
+            document.getElementById('epoch').innerHTML= Date.now();
+            sendObjectMessage(ws, new Date());
+            console.log(Date.now());
+        },10000);
+
+
+        function sendObjectMessage(ws, value) {
+            ws.send(JSON.stringify(value));
+        }
+
+    </script>
+
+</html>
+
+
