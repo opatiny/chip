@@ -3,30 +3,39 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h1 id="myTitle">Cylinder control page <span id = "epoch"> epoch </span></h1>
-        <p>Click the <span id="controlButton">left button</span>  to start cylinder control, click the <span id="stabButton">right button</span> to run the stabilization programme.</p>
-        <!-- Creating buttons-->
+        <h1 id="myTitle">Cylinder control page</h1>
         <div style="text-align: center">
-            <button class="button">Control</button>
-            <button class="button button2">Stabilisation</button>
+            <span id = "epoch"> Time: epoch </span>
         </div>
 
-        <p>Move the slider to modify the radius of the circle the mass is moving on, the negative values make the cylinder roll backwards.</p>
-        <input type="range" min="-40" max="40" step="1" id="mySlider" style="width: 500px" list="tickmarks">
-        <datalist id="tickmarks">
-            <option>-40</option>
-            <option>-30</option>
-            <option>-20</option>
-            <option>-10</option>
-            <option>0</option>
-            <option>10</option>
-            <option>20</option>
-            <option>30</option>
-            <option>40</option>
-        </datalist>
-        <p>
-            <div id="sliderValue" style="text-align: center"> Current radius value: 0</div>
-        </p>
+
+        <p>Click the <span id="controlButtonSpan">left button</span>  to start cylinder control, click the <span id="stabButtonSpan">right button</span> to run the stabilization algorithm.</p>
+        <!-- Creating buttons-->
+        <div style="text-align: center">
+            <button id="controlButton" class="button" onclick="showDiv('sliderDiv'); opacityOf('stabButton'); opacityOn('controlButton')">Control</button>
+            <button id="stabButton" class="button button2" onclick="hideDiv('sliderDiv'); opacityOn('stabButton'); opacityOf('controlButton')">Stabilisation</button>
+        </div>
+
+        <p>Move the slider to modify the radius of the circle on which the mass is moves, the negative values make the cylinder roll backwards.</p>
+        <div id="sliderDiv" style="display:none; text-align: center" class="answer_list">
+            <input type="range" min="-40" max="40" step="1" id="mySlider" style="width: 500px; text-align: center" list="tickmarks">
+            <datalist id="tickmarks">
+                <option>-40</option>
+                <option>-30</option>
+                <option>-20</option>
+                <option>-10</option>
+                <option>0</option>
+                <option>10</option>
+                <option>20</option>
+                <option>30</option>
+                <option>40</option>
+            </datalist>
+            <p>
+            <div id="sliderValue"> Current radius value: 0</div>
+            </p>
+        </div>
+
+
 
 
     </body>
@@ -49,7 +58,7 @@
         };
 
         window.setInterval( function() {
-            document.getElementById('epoch').innerHTML= Date.now();
+            document.getElementById('epoch').innerHTML= 'Time in ms:' + '\t' + Date.now();
             sendObjectMessage(ws, new Date());
             console.log(Date.now());
         },10000);
@@ -58,6 +67,25 @@
         function sendObjectMessage(ws, value) {
             ws.send(JSON.stringify(value));
         }
+
+        // taken from https://stackoverflow.com/questions/6957443/how-to-display-div-after-click-the-button-in-javascript
+        function showDiv(id) {
+            document.getElementById(id).style.display = "block";
+        }
+
+        function hideDiv(id) {
+            document.getElementById(id).style.display = "none";
+        }
+        //end
+
+        function opacityOn(id) {
+            document.getElementById(id).style.opacity = 1;
+        }
+
+        function opacityOf(id) {
+            document.getElementById(id).style.opacity = 0.5;
+        }
+
 
     </script>
 
