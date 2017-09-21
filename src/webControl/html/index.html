@@ -8,16 +8,24 @@
             <span id = "epoch"> Time: epoch </span>
         </div>
 
-
+        <p>Chose the cylinder prototype you will use:
+            <!-- Taken from https://www.wufoo.com/html5/elements/5-datalist.html-->
+            <input type="text" list="datalist">
+            <datalist id="datalist">
+                <option>cylinderPrototype2</option>
+                <option>cylinderPrototype3</option>
+            </datalist>
+            <!-- end-->
+        </p>
         <p>Click the <span id="controlButtonSpan">left button</span>  to start cylinder control, click the <span id="stabButtonSpan">right button</span> to run the stabilization algorithm.</p>
         <!-- Creating buttons-->
         <div style="text-align: center">
-            <button id="controlButton" class="button" onclick="showDiv('sliderDiv'); opacityOf('stabButton'); opacityOn('controlButton')">Control</button>
-            <button id="stabButton" class="button button2" onclick="hideDiv('sliderDiv'); opacityOn('stabButton'); opacityOf('controlButton')">Stabilisation</button>
+            <button id="controlButton" class="button" onclick="showDiv('sliderDiv'); hideDiv('stabTextDiv'); opacityOf('stabButton'); opacityOn('controlButton')">Control</button>
+            <button id="stabButton" class="button button2" onclick="hideDiv('sliderDiv'); showDiv('stabTextDiv');opacityOn('stabButton'); opacityOf('controlButton')">Stabilisation</button>
         </div>
 
-        <p>Move the slider to modify the radius of the circle on which the mass is moves, the negative values make the cylinder roll backwards.</p>
         <div id="sliderDiv" style="display:none; text-align: center" class="answer_list">
+            <p>Move the slider to modify the radius of the circle on which the mass moves, the negative values make the cylinder roll backwards.</p>
             <input type="range" min="-40" max="40" step="1" id="mySlider" style="width: 500px; text-align: center" list="tickmarks">
             <datalist id="tickmarks">
                 <option>-40</option>
@@ -31,10 +39,13 @@
                 <option>40</option>
             </datalist>
             <p>
-            <div id="sliderValue"> Current radius value: 0</div>
+            <div id="sliderValue"> Current radius: 0 [mm]</div>
             </p>
         </div>
 
+        <div id="stabTextDiv" style="display:none; text-align: center" class="answer_list">
+            <p>Place the cylinder on a rigid slope and vary the incline. The cylinder should sway and rebalance up to a certain angle.</p>
+        </div>
 
 
 
@@ -43,7 +54,7 @@
     <script>
         document.getElementById('mySlider').addEventListener('input', function(event) {
             console.log(event.target.value);
-            document.getElementById('sliderValue').innerHTML= 'Current radius value:' + '\t' + event.target.value;
+            document.getElementById('sliderValue').innerHTML= 'Current radius value:' + '\t' + event.target.value + ' [mm]';
             sendObjectMessage(ws, {event: 'radiusSlider', value: event.target.value})
         });
 
@@ -72,11 +83,12 @@
         function showDiv(id) {
             document.getElementById(id).style.display = "block";
         }
+        //end
 
         function hideDiv(id) {
             document.getElementById(id).style.display = "none";
         }
-        //end
+
 
         function opacityOn(id) {
             document.getElementById(id).style.opacity = 1;
@@ -90,5 +102,3 @@
     </script>
 
 </html>
-
-
