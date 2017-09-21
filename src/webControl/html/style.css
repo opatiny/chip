@@ -9,6 +9,11 @@ h1 {
     color: white;
 }
 
+select  {
+    font-size: 1.2em;
+    background-color: black;
+    color: white;
+}
 /* the use of an # in css allows to add specific parameters to an id, this means that the modifications will apply on an unique piece of code*/
 #myTitle {
     padding-top: 20px;
