@@ -29,22 +29,28 @@ app.ws('/ws', (ws, req) => {
         var button = lastButton[lastButton.length-1];
         var sliderValue = lastSliderValue[lastSliderValue.length-1];
 
-        console.log('button: ' + button + '\t' + 'cylinderPrototype: ' + cylinderPrototype + '\t' + 'sliderValue: ' + sliderValue);
-        module.export = {
+        module.exports = {
             button,
             cylinderPrototype,
             sliderValue
-        }
+        };
+
+        console.log('button: ' + button + '\t' + 'cylinderPrototype: ' + cylinderPrototype + '\t' + 'sliderValue: ' + sliderValue);
 
     });
 
+
     ws.on('close', () => {
         console.log('WebSocket was closed');
+        lastDatalist = [0];
+        lastButton = [0];
+        lastSliderValue = [0];
     });
 
     ws.on('connection', () => {
         console.log('WebSocket was opened');
     });
+
 });
 
 app.listen(8080);
