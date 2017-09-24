@@ -9,29 +9,55 @@ var Five = require('johnny-five');
 var ChipIO = require('../preferences.js').ChipIO;
 debug('Packages required');
 
+var constantPosition = require('./constantMassPosition.js');
+debug('constantMassPosition required');
+
 var board = new Five.Board({
     io: new ChipIO()
 });
 debug('board created');
 
+// the function allowing command line arguments
+function grab(flag) {
+    let index = process.argv.indexOf(flag);
+    return (index === -1) ? undefined : process.argv[index + 1];
+}
 
-var constantPosition = require('./constantPosition.js');
-debug('constantPosition required');
+// your command line parameters
+const r = grab('--r'); // radius of the circle the mass runs on in [mm]
+const d = grab('--d'); // direction in which you go (backwards: 'b' or forwards: 'f')
+const s = grab('--stable'); // to enter the stable mode (--stable on)
+
+// to require web data
+var button = require('../webControl/index').button;
+var sliderValue = require('../webControl/index').sliderValue;
+debug('webControl data required');
+debug('button: ' + button + '\t' + 'sliderValue: ' + sliderValue);
+
+if (typeof s === 'number') {
+    var stable = 'on'
+} else if (button === 'stabButton') {
+    stable = 'on'
+}
+
+if (typeof r === 'number') {
+    var radiusCenter = r
+} else {
+    radiusCenter = sliderValue
+}
+
+if (typeof d === 'number') {
+    var direction = d
+} else if (sliderValue > 0){
+    direction = 'f'
+} else if (sliderValue < 0) {
+    direction = 'b'
+}
+
+debug('radiusCenter', radiusCenter + '\t' + 'direction', direction);
+
 
 board.on('ready', async function () {
-
-    // the function allowing command line arguments
-    function grab(flag) {
-        let index = process.argv.indexOf(flag);
-        return (index === -1) ? undefined : process.argv[index + 1];
-    }
-
-    // your command line parameters
-    const radiusCenter = grab('--r'); // radius of the circle the mass runs on in [mm]
-    const direction = grab('--d'); // direction in which you go (backwards: 'b' or forwards: 'f')
-    const stable = grab('--stable'); // to enter the stable mode (--stable on)
-
-    debug('radiusCenter', radiusCenter + '\t' + 'direction', direction);
 
     if (!(radiusCenter && direction) && !(stable && radiusCenter)) {
         console.log('No data to execute');

@@ -1,6 +1,13 @@
 var pro = true;
-var cylinderPrototype = 3;
+var protoFromWeb = require('./webControl/index').cylinderPrototype;
 
+if (protoFromWeb === 'cylinderPrototype2') {
+    const cylinderPrototype = 3
+} else if (protoFromWeb === 'cylinderPrototype3') {
+    cylinderPrototype = 2
+} else {
+    cylinderPrototype = 3
+}
 
 var ChipIO;
 var servoPins;

@@ -1,6 +1,8 @@
 <html>
     <head>
         <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <title>Cylinder Control</title>
     </head>
     <body>
         <h1 id="myTitle">Cylinder control page</h1>
@@ -46,11 +48,25 @@
             <p>Place the cylinder on a rigid slope and vary the incline. The cylinder should sway and rebalance up to a certain angle.</p>
         </div>
 
-
-
     </body>
 
+
     <script>
+
+        document.getElementById('datalist').addEventListener('input', function(event) {
+            console.log(event.target.value);
+            sendObjectMessage(ws, {event: 'datalist', value: event.target.value})
+        });
+
+        document.getElementById('controlButton').addEventListener('click', function() {
+            console.log('ControlButton was pressed');
+            sendObjectMessage(ws, {event: 'button', value: 'control'})
+        });
+        document.getElementById('stabButton').addEventListener('click', function() {
+            console.log('StabButton was pressed');
+            sendObjectMessage(ws, {event: 'button', value: 'stabilization'})
+        });
+
         document.getElementById('mySlider').addEventListener('input', function(event) {
             console.log(event.target.value);
             document.getElementById('sliderValue').innerHTML= 'Current radius value:' + '\t' + event.target.value + ' [mm]';
