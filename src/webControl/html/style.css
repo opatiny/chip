@@ -29,6 +29,9 @@ select  {
     color: #4CAF50;
 }
 
+#centerButtonSpan{
+    color: #008CBA;
+}
 #stabButtonSpan {
     color: #f44336;
 }

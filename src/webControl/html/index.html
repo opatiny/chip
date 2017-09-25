@@ -10,25 +10,46 @@
             <span id = "epoch"> Time: epoch </span>
         </div>
 
-        <p>Chose the cylinder prototype you will use:
+        <p>Choose the cylinder prototype you will use:
             <!-- Taken from https://www.wufoo.com/html5/elements/5-datalist.html-->
             <select id="datalist">
                 <option selected="true"></option>
-                <option>cylinderPrototype2</option>
-                <option>cylinderPrototype3</option>
+                <option value="2">CP 2</option>
+                <option value="3">CP 3</option>
             </select>
             <!-- end-->
         </p>
-        <p>Click the <span id="controlButtonSpan">left button</span>  to start cylinder control, click the <span id="stabButtonSpan">right button</span> to run the stabilization algorithm.</p>
+        <p>Click the <span id="controlButtonSpan">left button</span>  to start cylinder control, click the <span id="centerButtonSpan">button in the center</span> to move the mass to the center of the cylinder, click the <span id="stabButtonSpan">right button</span> to run the stabilization algorithm.</p>
         <!-- Creating buttons-->
-        <div style="text-align: center">
-            <button id="controlButton" class="button" onclick="showDiv('sliderDiv'); hideDiv('stabTextDiv'); opacityOf('stabButton'); opacityOn('controlButton')">Control</button>
-            <button id="stabButton" class="button button2" onclick="hideDiv('sliderDiv'); showDiv('stabTextDiv');opacityOn('stabButton'); opacityOf('controlButton')">Stabilisation</button>
+        <div style="text-align: center" id="buttons">
+            <button id="controlButton" class="button">Control</button>
+            <button id="centerButton" class="button button1">Center</button>
+            <button id="stabilizationButton" class="button button2">Stabilisation</button>
         </div>
 
-        <div id="sliderDiv" style="display:none; text-align: center" class="answer_list">
+        <script>
+            document.getElementById('buttons').addEventListener('click', function(event) {
+                var buttonName=event.target.id;
+                var algorithm=buttonName.replace('Button','');
+                var divName=buttonName.replace('Button','Div');
+                opacityOf('controlButton');
+                opacityOf('centerButton');
+                opacityOf('stabilizationButton');
+                opacityOn(buttonName);
+                hideDiv('controlDiv');
+                hideDiv('centerDiv');
+                hideDiv('stabilizationDiv');
+                showDiv(divName);
+                sendObjectMessage(ws, {event: 'algorithm', value: algorithm});
+            });
+
+
+
+        </script>
+
+        <div id="controlDiv" style="display:none; text-align: center" class="answer_list">
             <p>Move the slider to modify the radius of the circle on which the mass moves, the negative values make the cylinder roll backwards.</p>
-            <input type="range" min="-40" max="40" step="1" id="mySlider" style="width: 500px; text-align: center" list="tickmarks">
+            <input type="range" min="-40" max="40" step="1" id="slider" style="width: 500px; text-align: center" list="tickmarks">
             <datalist id="tickmarks">
                 <option>-40</option>
                 <option>-30</option>
@@ -45,8 +66,12 @@
             </p>
         </div>
 
-        <div id="stabTextDiv" style="display:none; text-align: center" class="answer_list">
+        <div id="stabilizationDiv" style="display:none; text-align: center" class="answer_list">
             <p>Place the cylinder on a rigid slope and vary the incline. The cylinder should sway and rebalance up to a certain angle.</p>
+        </div>
+
+        <div id="centerDiv" style="display:none; text-align: center" class="answer_list">
+            <p>Blabla.</p>
         </div>
 
     </body>
@@ -56,28 +81,19 @@
 
         document.getElementById('datalist').addEventListener('input', function(event) {
             console.log(event.target.value);
-            sendObjectMessage(ws, {event: 'datalist', value: event.target.value})
+            sendObjectMessage(ws, {event: 'version', value: event.target.value})
         });
 
-        document.getElementById('controlButton').addEventListener('click', function() {
-            console.log('ControlButton was pressed');
-            sendObjectMessage(ws, {event: 'button', value: 'control'})
-        });
-        document.getElementById('stabButton').addEventListener('click', function() {
-            console.log('StabButton was pressed');
-            sendObjectMessage(ws, {event: 'button', value: 'stabilization'})
-        });
-
-        document.getElementById('mySlider').addEventListener('input', function(event) {
+        document.getElementById('slider').addEventListener('input', function(event) {
             console.log(event.target.value);
             document.getElementById('sliderValue').innerHTML= 'Current radius value:' + '\t' + event.target.value + ' [mm]';
-            sendObjectMessage(ws, {event: 'radiusSlider', value: event.target.value})
+            sendObjectMessage(ws, {event: 'radius', value: event.target.value})
         });
 
         const ws = new WebSocket(document.location.origin.replace(/^http/,'ws')+'/ws'); // making path of websocket relative using regExp
 
         ws.onopen = function open() {
-            sendObjectMessage(ws, {param1: 'bla', param2: '3 pt'})
+            sendObjectMessage(ws, {event: 'openingTime', value: Date.now()})
         };
 
         ws.onmessage = function incoming(data) {
@@ -86,8 +102,7 @@
 
         window.setInterval( function() {
             document.getElementById('epoch').innerHTML= 'Time in ms:' + '\t' + Date.now();
-            sendObjectMessage(ws, new Date());
-            console.log(Date.now());
+            sendObjectMessage(ws, {event: 'lastSeen', value: Date.now()});
         },10000);
 
 

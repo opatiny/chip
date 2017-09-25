@@ -3,9 +3,8 @@ const express = require('express');
 const app = express();
 require('express-ws')(app);
 
-let lastDatalist = [0];
-let lastButton = [0];
-let lastSliderValue = [0];
+let prefs={};
+
 
 app.use(express.static('html'));
 
@@ -15,36 +14,17 @@ app.ws('/ws', (ws, req) => {
         // ws.send(msg);
         debug(message);
 
-        if (message.event === 'datalist') {
-            lastDatalist.push(message.value);
-        } else if (message.event === 'button') {
-            lastButton.push(message.value);
-            debug('button:' + '\t' + button);
-        } else if (message.event === 'radiusSlider') {
-            lastSliderValue.push(message.value);
-        }
+        prefs[message.event]=message.value;
+        module.exports = prefs;
 
-        // to have only the last value of these parameters
-        var cylinderPrototype = lastDatalist[lastDatalist.length - 1];
-        var button = lastButton[lastButton.length-1];
-        var sliderValue = lastSliderValue[lastSliderValue.length-1];
-
-        module.exports = {
-            button,
-            cylinderPrototype,
-            sliderValue
-        };
-
-        console.log('button: ' + button + '\t' + 'cylinderPrototype: ' + cylinderPrototype + '\t' + 'sliderValue: ' + sliderValue);
+        console.log(prefs);
 
     });
 
 
     ws.on('close', () => {
         console.log('WebSocket was closed');
-        lastDatalist = [0];
-        lastButton = [0];
-        lastSliderValue = [0];
+        prefs={};
     });
 
     ws.on('connection', () => {
