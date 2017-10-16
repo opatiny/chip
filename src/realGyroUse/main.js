@@ -14,8 +14,8 @@ var board = new Five.Board({
 });
 debug('board created');
 
-var constantPosition = require('./constantMassPosition.js');
-debug('constantMassPosition required');
+var toAlpha = require('./toAlpha');
+debug('toAlpha function required');
 
 board.on('ready', async function () {
     debug('adgsgadfh');
@@ -26,16 +26,18 @@ board.on('ready', async function () {
     }
 
 // your command line parameters
-    var r = grab('--r'); // radius of the circle the mass runs on in [mm]
-    const d = grab('--d'); // direction in which you go (backwards: 'b' or forwards: 'f')
-    const s = grab('--stable'); // to enter the stable mode (--stable on)
-    r = parseFloat(r);
+    var radiusCenter = grab('--r'); // radius of the circle the mass runs on in [mm]
+    const direction = grab('--d'); // direction in which you go (backwards: 'b' or forwards: 'f')
+    const stable = grab('--stable'); // to enter the stable mode (--stable on)
 
+
+    /*
 // to require web data
     const button = require('../webControl/index').button;
     const sliderValue = require('../webControl/index').sliderValue;
     debug('webControl data required');
     debug('button: ' + button + '\t' + 'sliderValue: ' + sliderValue);
+
 
     if (typeof s === 'string') {
         var stable = 'on'
@@ -56,7 +58,7 @@ board.on('ready', async function () {
     } else if (sliderValue < 0) {
         direction = 'b'
     }
-
+*/
     debug('radiusCenter', radiusCenter + '\t' + 'direction', direction);
 
 
@@ -77,7 +79,6 @@ board.on('ready', async function () {
 
 
     accelerometer.on('change', async function () {
-
 
         let newCounter = counter++;
         //debug('counter' + '\t' + newCounter);
@@ -130,7 +131,7 @@ board.on('ready', async function () {
             debug('angleCenter' + '\t' + angleCenter);
 
         } else if (stable === 'on') {
-            let previousAngleCenter = angleCenterLog[angleCenterLog.length-1];// this allows to have the last values of angleCenter
+            let previousAngleCenter = angleCenterLog[angleCenterLog.length-1];// this allows to have the last value of angleCenter
             debug('previousAngleCenter' + '\t' + previousAngleCenter);
 
             let inclinationDiff = inclinationLog[inclinationLog.length-1].toPrecision(4) - inclinationLog[inclinationLog.length-2].toPrecision(4);
@@ -153,9 +154,11 @@ board.on('ready', async function () {
         }
 
 
-        await constantPosition(radiusCenter, angleCenter);
+        await toAlpha(radiusCenter, angleCenter);
 
     });
+
+
 });
 
 
