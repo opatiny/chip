@@ -9,13 +9,16 @@ const delay = require('delay');
 function stable(inclination, inclinationLog, angleCenterLog) {
     var angleCenter;
 
-    inclinationLog = [inclinationLog[inclinationLog.length - 1]]; // this allows to have the two last values of inclination
+    inclinationLog = [inclinationLog[inclinationLog.length - 2]]; // this allows to have the two last values of inclination
+    debug('inclination log' + '\t' + inclinationLog);
+
     inclinationLog.push(inclination);
     debug('inclination log' + '\t' + inclinationLog);
 
 
     let previousAngleCenter = angleCenterLog[angleCenterLog.length - 1];// this allows to have the last values of angleCenter
     debug('previousAngleCenter' + '\t' + previousAngleCenter);
+
 
     let inclinationDiff = inclinationLog[inclinationLog.length - 1].toPrecision(4) - inclinationLog[inclinationLog.length - 2].toPrecision(4);
     debug('inclinationDiff ' + inclinationDiff);

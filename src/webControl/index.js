@@ -40,7 +40,6 @@ if (prefs.event = 'version') {
 
     board.on('ready', async function () {
 
-
         var accelerometer = new Five.Accelerometer({
             controller: 'MPU6050',
             sensitivity: 16384 // optional
@@ -48,9 +47,8 @@ if (prefs.event = 'version') {
         debug('Accelerometer defined');
 
         var counter = 0; // to count the number of changes
-        var inclinationLog = [0, 0];
+        var inclinationLog = [0,0];
         var angleCenterLog = [0];
-
         accelerometer.on('change', async function () {
 
             let newCounter = counter++;

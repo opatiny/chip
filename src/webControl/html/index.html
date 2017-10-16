@@ -22,7 +22,7 @@
         <p>Click the <span id="controlButtonSpan">left button</span>  to start cylinder control, click the <span id="centerButtonSpan">button in the center</span> to move the mass to the center of the cylinder, click the <span id="stabButtonSpan">right button</span> to run the stabilization algorithm.</p>
         <!-- Creating buttons-->
         <div style="text-align: center" id="buttons">
-            <button id="controlButton" class="button">Control</button>
+            <button id="controlButton" onclick="resetSlider();" class="button">Control</button>
             <button id="centerButton" class="button button1">Center</button>
             <button id="stabilizationButton" class="button button2">Stabilisation</button>
         </div>
@@ -129,6 +129,11 @@
             document.getElementById(id).style.opacity = 0.5;
         }
 
+        function resetSlider() {
+            document.getElementById('slider').value=0;
+            document.getElementById('sliderValue').innerHTML= 'Current radius value: 0 [mm]';
+            sendObjectMessage(ws, {event: 'radius', value: 0});
+        }
 
     </script>
 
