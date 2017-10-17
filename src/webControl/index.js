@@ -1,4 +1,4 @@
-const debug = require('debug')('wc:test'); // wc for web control
+const debug = require('debug')('wc:index'); // wc for web control
 const delay = require('delay');
 const Five = require('johnny-five');
 //const ChipIO = require('../preferences.js').ChipIO;
@@ -7,21 +7,28 @@ const app = express();
 require('express-ws')(app);
 debug('Packages required');
 
-const prefs = require('./ws');
+const ws = require('./ws');
+const prefs = ws.prefs;
+const ChipIO = ws.ChipIO;
+const cylinderParameters = ws.cylinderParameters;
+
 var preferences = require('./preferences');
-debug('preferences required');
+debug('cylinder preferences required');
 
-if (prefs.event = 'version') {
-    var cylinderParameters = {};
-    if (prefs.value === 3) {
-        cylinderPrototype = 3;
-        cylinderParameters = preferences(3);
-    } else {
-        cylinderParameters = preferences(prefs.value);
-    }
 
-    const ChipIO = cylinderParameters.ChipIO;
-    debug('ChipIO and servos required, you are using cp'+prefs.event);
+    //var cylinderParameters = {};
+    //if (prefs.value === 3) {
+    //    cylinderParameters = preferences(3);
+    //} else if (typeof(prefs.value) === "number"){
+    //    cylinderParameters = preferences(prefs.value);
+    //} else {
+    //    console.log('Cylinder version is not defined.')
+    //}
+//
+    //const ChipIO = cylinderParameters.ChipIO;
+    //debug('ChipIO and servos required, you are using cp' + prefs.event);
+
+if (ChipIO) {
 
     var board = new Five.Board({
         io: new ChipIO()
@@ -47,8 +54,9 @@ if (prefs.event = 'version') {
         debug('Accelerometer defined');
 
         var counter = 0; // to count the number of changes
-        var inclinationLog = [0,0];
+        var inclinationLog = [0, 0];
         var angleCenterLog = [0];
+
         accelerometer.on('change', async function () {
 
             let newCounter = counter++;
@@ -64,15 +72,24 @@ if (prefs.event = 'version') {
             var angleCenter;
             var radiusCenter;
 
-            if (prefs.algorithm === 'control'){
-                 angleCenter = await control(baseAngle, prefs);
-                 radiusCenter = Math.abs(prefs.radius);
+            if (prefs.algorithm === 'control') {
+                angleCenter = await control(baseAngle, prefs);
+                radiusCenter = Math.abs(prefs.radius);
                 debug('radiusCenter; ' + radiusCenter);
-            } else if (prefs.algorithm === 'center' ){
-                 angleCenter = 0;
-                 radiusCenter = 0;
-            } else if (prefs.algorithm === 'stabilization'){
-                angleCenter = await stable(inclination, inclinationLog, angleCenterLog);
+            } else if (prefs.algorithm === 'center') {
+                angleCenter = 0;
+                radiusCenter = 0;
+            } else if (prefs.algorithm === 'stabilization') {
+
+                inclinationLog = [inclinationLog[inclinationLog.length - 1]]; // this allows to have the two last values of inclination
+                debug('inclination log' + '\t' + inclinationLog);
+
+                inclinationLog.push(inclination);
+                debug('inclination log' + '\t' + inclinationLog);
+
+                angleCenter = await stable(inclinationLog, angleCenterLog);
+                angleCenterLog.push(angleCenter);
+
                 radiusCenter = cylinderParameters.prototypeParameters.maxRadiusCenter;
                 debug('radiusCenter: ' + radiusCenter);
             }
@@ -81,5 +98,6 @@ if (prefs.event = 'version') {
         });
 
     });
+
 
 }
