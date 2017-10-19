@@ -7,10 +7,8 @@ const delay = require('delay');
 const {servo1, servo2, servo3} = require('../servoPins.js');
 debug('servos required');
 
-
 const cylinderPrototype = require('../preferences.js').cylinderPrototype;
 debug('Parameters and packages required');
-
 
 async function constantPosition(radiusCenter, angleCenter) {
 
@@ -63,7 +61,6 @@ async function constantPosition(radiusCenter, angleCenter) {
     // debug('step4');
 
     await delay(delayValue);
-
 }
 
 module.exports = constantPosition;

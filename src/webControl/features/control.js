@@ -2,7 +2,6 @@
 'use strict'
 
 const debug = require('debug')('wc:control'); // wc for web control
-const delay = require('delay');
 
 function control(baseAngle, prefs) {
     var angleCenter;

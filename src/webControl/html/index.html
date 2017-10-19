@@ -10,15 +10,6 @@
             <span id = "epoch"> Time: epoch </span>
         </div>
 
-        <p>Choose the cylinder prototype you will use:
-            <!-- Taken from https://www.wufoo.com/html5/elements/5-datalist.html-->
-            <select id="datalist">
-                <option selected="true"></option>
-                <option value="2">CP 2</option>
-                <option value="3">CP 3</option>
-            </select>
-            <!-- end-->
-        </p>
         <p>Click the <span id="controlButtonSpan">left button</span>  to start cylinder control, click the <span id="centerButtonSpan">button in the center</span> to move the mass to the center of the cylinder, click the <span id="stabButtonSpan">right button</span> to run the stabilization algorithm.</p>
         <!-- Creating buttons-->
         <div style="text-align: center" id="buttons">
@@ -78,11 +69,6 @@
 
 
     <script>
-
-        document.getElementById('datalist').addEventListener('input', function(event) {
-            console.log(event.target.value);
-            sendObjectMessage(ws, {event: 'version', value: event.target.value})
-        });
 
         document.getElementById('slider').addEventListener('input', function(event) {
             console.log(event.target.value);
