@@ -18,7 +18,7 @@ var toAlpha = require('./toAlpha');
 debug('toAlpha function required');
 
 board.on('ready', async function () {
-    debug('adgsgadfh');
+    debug('board on');
     // the function allowing command line arguments
     function grab(flag) {
         let index = process.argv.indexOf(flag);

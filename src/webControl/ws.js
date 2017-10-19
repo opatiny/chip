@@ -8,9 +8,6 @@ const app = express();
 require('express-ws')(app);
 debug('Packages required');
 
-var preferences = require('./preferences');
-debug('cylinder preferences required');
-
 let prefs = {};
 
 app.use(express.static('html'));
@@ -23,23 +20,8 @@ app.ws('/ws', (ws, req) => {
         debug(message);
         prefs[message.event] = message.value;
 
-        if (prefs.event === 'version') {
-            var cylinderParameters = {};
-            if (prefs.value === 3) {
-                cylinderParameters = preferences(3);
-            } else if (typeof(prefs.value) === "number") {
-                cylinderParameters = preferences(prefs.value);
-            } else {
-                console.log('Cylinder version is not defined.')
-            }
-
-            const ChipIO = cylinderParameters.ChipIO;
-            debug('ChipIO and servos required, you are using cp' + prefs.event);
-
-            module.exports = {prefs, cylinderParameters, ChipIO};
+        module.exports = {prefs};
         debug(prefs);
-
-        }
 
     });
 
@@ -52,6 +34,6 @@ app.ws('/ws', (ws, req) => {
         console.log('WebSocket was opened');
     });
 });
-app.listen(8080);
+app.listen(80);
 
-module.exports = {prefs, cylinderParameters, ChipIO};
+module.exports = {prefs};

@@ -1,48 +1,28 @@
 const debug = require('debug')('wc:index'); // wc for web control
 const delay = require('delay');
 const Five = require('johnny-five');
-//const ChipIO = require('../preferences.js').ChipIO;
+const ChipIO = require('../preferences.js').ChipIO;
 const express = require('express');
 const app = express();
 require('express-ws')(app);
 debug('Packages required');
 
-const ws = require('./ws');
-const prefs = ws.prefs;
-const ChipIO = ws.ChipIO;
-const cylinderParameters = ws.cylinderParameters;
+const cylinderPrototype = require('../preferences.js').cylinderPrototype;
+debug('cylinder parameters required');
 
-var preferences = require('./preferences');
-debug('cylinder preferences required');
-
-
-    //var cylinderParameters = {};
-    //if (prefs.value === 3) {
-    //    cylinderParameters = preferences(3);
-    //} else if (typeof(prefs.value) === "number"){
-    //    cylinderParameters = preferences(prefs.value);
-    //} else {
-    //    console.log('Cylinder version is not defined.')
-    //}
-//
-    //const ChipIO = cylinderParameters.ChipIO;
-    //debug('ChipIO and servos required, you are using cp' + prefs.event);
-
-if (ChipIO) {
+const prefs = require('./ws');
+debug('prefs required');
 
     var board = new Five.Board({
         io: new ChipIO()
     });
     debug('board created');
 
-    const servoPins = cylinderParameters.servoPins;
-    const defineServo = require('./defineServo');
-    const {servo1, servo2, servo3} = defineServo(servoPins);
 
-    var toPrototypeInclination = require('./features/gyroToProto3Angle');
-    var toAlpha = require('./features/toAlphaFunction');
-    var control = require('./features/control');
-    var stable = require('./features/stable');
+    const toPrototypeInclination = require('./features/gyroToProto3Angle');
+    const toAlpha = require('./features/toAlphaFunction');
+    const control = require('./features/control');
+    const stable = require('./features/stable');
     debug('toAlpha, toPrototypeInclination, control functions required');
 
     board.on('ready', async function () {
@@ -90,14 +70,12 @@ if (ChipIO) {
                 angleCenter = await stable(inclinationLog, angleCenterLog);
                 angleCenterLog.push(angleCenter);
 
-                radiusCenter = cylinderParameters.prototypeParameters.maxRadiusCenter;
+                radiusCenter = cylinderPrototype.maxRadiusCenter;
                 debug('radiusCenter: ' + radiusCenter);
             }
 
-            await toAlpha(radiusCenter, angleCenter, cylinderParameters, {servo1, servo2, servo3});
+            await toAlpha(radiusCenter, angleCenter);
         });
 
     });
 
-
-}
