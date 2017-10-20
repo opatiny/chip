@@ -2,7 +2,6 @@
 // control of one servo, the code brings it to a given angle irl (degrees)
 
 const debug = require('debug')('ft:trueAngle');
-const delay = require('delay');
 
 var Five = require('johnny-five');
 var ChipIO = require('../preferences.js').ChipIO;
@@ -11,7 +10,7 @@ const cylinderPrototype = require('../preferences').cylinderPrototype;
 // Initialize the servo instance
 const {servo1, servo2, servo3} = require('../servoPins.js');
 
-debug('Packages required')
+debug('Packages required');
 
 var board = new Five.Board({
     io: new ChipIO()

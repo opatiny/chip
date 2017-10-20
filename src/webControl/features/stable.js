@@ -1,10 +1,8 @@
 // code that allows the cylinder to remain balanced on a gentle slope.
 // The radius of the circle the mass is on (radiusCenter, --r) and if it goes backwards (--d b) or forwards (--d f) are parameters.
 
-'use strict'
-const debug = require('debug')('wc:stable'); // wc for web control
-const delay = require('delay');
 
+const debug = require('debug')('wc:stable'); // wc for web control
 
 function stable(inclinationLog, angleCenterLog) {
     var angleCenter;
@@ -21,14 +19,13 @@ function stable(inclinationLog, angleCenterLog) {
     //const proportionalStep = inclinationDiff / 0.75;
 
     if (inclinationDiff < 0) {
-        angleCenter = previousAngleCenter - 0.5
+        angleCenter = previousAngleCenter - 0.5;
     } else if (inclinationDiff === 0) {
-        angleCenter = previousAngleCenter
+        angleCenter = previousAngleCenter;
     } else {
-        angleCenter = previousAngleCenter + 0.5
+        angleCenter = previousAngleCenter + 0.5;
     }
     debug('angleCenter' + '\t' + angleCenter);
-
 
 
     return angleCenter;

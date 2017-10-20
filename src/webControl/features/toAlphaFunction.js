@@ -1,6 +1,5 @@
 // function that allows to make the mass move to a certain angle (angleCenter) on a circle of given radius (radiusCenter).
 
-'use strict'
 
 const debug = require('debug')('wc:toAlpha'); // wc for web control
 const delay = require('delay');

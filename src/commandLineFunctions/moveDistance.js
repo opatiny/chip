@@ -1,4 +1,4 @@
-'use strict'
+
 // code that allows to indicate what distance the cylinder should move, having related directly the number of rotations of the mass and of the cylinder (can be totally wrong)
 
 const debug = require('debug')('cl:distance');

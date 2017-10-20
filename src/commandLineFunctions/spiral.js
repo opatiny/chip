@@ -1,4 +1,4 @@
-'use strict'
+
 // code that allows the mass to draw a spiral, from the biggest radius to a radius of 0
 
 const debug = require('debug')('cl:spiral');

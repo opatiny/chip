@@ -1,4 +1,4 @@
-'use strict'
+
 // function that allows to make the mass move on a circle of given radius, a given number of times, parts of rotations are allowed.
 
 const debug = require('debug')('cl:circle');
@@ -41,7 +41,7 @@ async function movingOnCircle(radiusCenter, numberRotation = Infinity) {
         for (let angleCounter = 0; angleCounter < lastAngle; angleCounter += step) {
             // debug('step1');
 
-            let angleCenter = angleCounter%360;
+            let angleCenter = angleCounter % 360;
 
             let r = radiusCenter;
 
@@ -73,7 +73,7 @@ async function movingOnCircle(radiusCenter, numberRotation = Infinity) {
 
 
             await delay(delayValue);
-            }
+        }
 
 
     } else {
@@ -84,7 +84,7 @@ async function movingOnCircle(radiusCenter, numberRotation = Infinity) {
 
         for (let angleCounter = lastAngle; angleCounter > 0; angleCounter -= step) {
 
-            let angleCenter = angleCounter%360;
+            let angleCenter = angleCounter % 360;
 
             let r = radiusCenter;
             let xMassPosition1 = r * Math.cos(angleCenter / 180 * Math.PI);

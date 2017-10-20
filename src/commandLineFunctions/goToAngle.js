@@ -1,4 +1,4 @@
-'use strict'
+
 // code allowing the mass to move to a certain angle, the radius of the circle of the mass being a parameter
 const debug = require('debug')('cl:angle');
 const delay = require('delay');
@@ -20,7 +20,6 @@ async function goToAngle(angleCenter, radiusCenter) {
 
 
     const delayValue = cylinderPrototype.delayValue; // the time to wait between to values of the angles in [ms]
-    const step = cylinderPrototype.step; // the number of degrees that are added to angleCenter every time the servos move
 
     // parameters that depend on the servo characteristics
     const infoServo1 = cylinderPrototype.infoServo1; // parameters of the angles of servo1

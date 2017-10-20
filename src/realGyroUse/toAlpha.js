@@ -1,4 +1,4 @@
-'use strict'
+
 // function that allows to make the mass move to a certain angle (angleCenter) on a circle of given radius (radiusCenter).
 
 const debug = require('debug')('ru:constantPos');

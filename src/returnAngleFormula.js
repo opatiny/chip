@@ -1,4 +1,4 @@
-'use strict'
+
 // formula that returns the angle of the servos depending on the angle in the center (defines mass position)
 // angleServo are the angles of the three different servos, they are between 0 and 180 degrees
 

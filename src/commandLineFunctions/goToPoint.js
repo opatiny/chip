@@ -1,4 +1,4 @@
-'use strict'
+
 // code that moves the mass to an x,y position
 const debug = require('debug')('cl:point');
 

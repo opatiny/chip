@@ -5,18 +5,18 @@ const express = require('express');
 const app = express();
 require('express-ws')(app);
 
-let prefs={};
+let prefs = {};
 
 
 app.use(express.static('html'));
 
-app.ws('/ws', (ws, req) => {
+app.ws('/ws', (ws) => {
     ws.on('message', msg => {
         var message = JSON.parse(msg);
         // ws.send(msg);
         debug(message);
 
-        prefs[message.event]=message.value;
+        prefs[message.event] = message.value;
         module.exports = prefs;
 
         console.log(prefs);
@@ -25,7 +25,7 @@ app.ws('/ws', (ws, req) => {
 
     ws.on('close', () => {
         console.log('WebSocket was closed');
-        prefs={};
+        prefs = {};
     });
 
     ws.on('connection', () => {
