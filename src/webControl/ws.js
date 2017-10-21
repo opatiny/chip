@@ -18,10 +18,7 @@ app.ws('/ws', (ws) => {
         // ws.send(msg);
         debug(message);
         prefs[message.event] = message.value;
-
-        module.exports = {prefs};
         debug(prefs);
-
     });
 
     ws.on('close', () => {
@@ -35,4 +32,4 @@ app.ws('/ws', (ws) => {
 });
 app.listen(80);
 
-module.exports = {prefs};
+module.exports = prefs;
