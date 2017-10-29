@@ -31,7 +31,7 @@
     "johnny-five": "^0.11.5",
     "nan": "^2.6.2",
     "path": "^0.12.7",
-    "ws": "^3.1.0"
+    "ws": "^3.2.0"
   },
   "devDependencies": {
     "codecov": "^2.3.0",
