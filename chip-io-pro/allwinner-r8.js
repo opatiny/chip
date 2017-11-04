@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 var events = require('events');
 var fs = require('fs');
 var util = require('util');

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /* eslint-disable */
 
 var events = require('events');

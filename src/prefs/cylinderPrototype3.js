@@ -23,29 +23,29 @@ const cylinderRadius = 160; // radius of the cylinder in [mm]
 
 
 var infoServo1 = {
-    trueMinAngle: 0, // minimal angle that the servo can really reach, this is equal to the minimal value of alpha (irl)
-    trueMaxAngle: 156, // maximal angle that the servo can really reach, this is equal to the maximal value of alpha (irl)
-    servoZeroAngle: 10, // angle of the servo that correspond to an irl zero degree
-    servoMaxAngle: 180 // maximal angle the servo can reach -> if you write i.e. 170, the servo won't move
+    minRealAngle: 0, // minimal angle that the servo can really reach, this is equal to the minimal value of alpha (irl)
+    maxRealAngle: 156, // maximal angle that the servo can really reach, this is equal to the maximal value of alpha (irl)
+    codeMinAngle: 10, // angle of the servo that correspond to an irl zero degree
+    codeMaxAngle: 180 // maximal angle the servo can reach -> if you write i.e. 170, the servo won't move
 };
 
 var infoServo2 = {
-    trueMinAngle: 0, // minimal angle that the servo can really reach, this is equal to the minimal value of alpha (irl)
-    trueMaxAngle: 153, // maximal angle that the servo can really reach, this is equal to the maximal value of alpha (irl)
-    servoZeroAngle: 9, // angle of the servo that correspond to an irl zero degree
-    servoMaxAngle: 180 // maximal angle the servo can reach -> if you write i.e. 170, the servo won't move
+    minRealAngle: 0, // minimal angle that the servo can really reach, this is equal to the minimal value of alpha (irl)
+    maxRealAngle: 153, // maximal angle that the servo can really reach, this is equal to the maximal value of alpha (irl)
+    codeMinAngle: 9, // angle of the servo that correspond to an irl zero degree
+    codeMaxAngle: 180 // maximal angle the servo can reach -> if you write i.e. 170, the servo won't move
 };
 
 var infoServo3 = {
-    trueMinAngle: 0, // minimal angle that the servo can really reach, this is equal to the minimal value of alpha (irl)
-    trueMaxAngle: 152, // maximal angle that the servo can really reach, this is equal to the maximal value of alpha (irl)
-    servoZeroAngle: 11, // angle of the servo that correspond to an irl zero degree
-    servoMaxAngle: 175 // maximal angle the servo can reach -> if you write i.e. 170, the servo won't move
+    minRealAngle: 0, // minimal angle that the servo can really reach, this is equal to the minimal value of alpha (irl)
+    maxRealAngle: 152, // maximal angle that the servo can really reach, this is equal to the maximal value of alpha (irl)
+    codeMinAngle: 11, // angle of the servo that correspond to an irl zero degree
+    codeMaxAngle: 175 // maximal angle the servo can reach -> if you write i.e. 170, the servo won't move
 };
 
 // function that allows to transpose the angle given by the formula to the irl angle that the servo outputs
 function setServoAngle(angle, info) {
-    var trueAngle = Math.round(angle * (info.servoMaxAngle - info.servoZeroAngle) / (info.trueMaxAngle - info.trueMinAngle) + info.servoZeroAngle);
+    var trueAngle = Math.round(angle * (info.codeMaxAngle - info.codeMinAngle) / (info.maxRealAngle - info.minRealAngle) + info.codeMinAngle);
     return (trueAngle);
 }
 
