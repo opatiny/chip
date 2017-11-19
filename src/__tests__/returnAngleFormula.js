@@ -1,4 +1,4 @@
-var formula = require('../../commandLineFunctions/returnAngleFormula');
+var formula = require('../returnAngleFormula');
 
 test('formula that returns the angle of the servos', function () {
     var xMassPosition = 0;
