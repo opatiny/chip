@@ -1,6 +1,6 @@
 body, tbody {
     background-color: black;
-    font-family: verdana;
+    font-family: verdana, arial, helvetica, sans-serif;
     color: white;
 }
 
@@ -21,7 +21,7 @@ select  {
     text-align: center;
 }
 
-#epoch {
+#info {
     font-size: 10px;
 }
 

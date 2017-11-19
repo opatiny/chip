@@ -7,7 +7,9 @@
     <body>
         <h1 id="myTitle">Cylinder control page</h1>
         <div style="text-align: center">
-            <span id = "epoch"> Time: epoch </span>
+            <span id='info'>
+                <span id = "epoch"> Time: epoch </span><br />Inclination in degrees: <span id='inclination'></span>
+            </span>
         </div>
 
         <p>Click the <span id="controlButtonSpan">left button</span>  to start cylinder control, click the <span id="centerButtonSpan">button in the center</span> to move the mass to the center of the cylinder, click the <span id="stabButtonSpan">right button</span> to run the stabilization algorithm.</p>
@@ -65,6 +67,7 @@
             <p>The mass will be placed in the center of the cylinder and remain there. This allows to make the cylinder a symmetrical rigid body, which signifies it will continue to roll freely, if it already had a speed.</p>
         </div>
 
+        
     </body>
 
 
@@ -82,15 +85,13 @@
             sendObjectMessage(ws, {event: 'openingTime', value: Date.now()})
         };
 
-        ws.onmessage = function incoming(data) {
-            console.log(data);
+        ws.onmessage = function incoming(message) {
+            document.getElementById('inclination').innerHTML=message.data.replace(/\..*/,'');
         };
 
         window.setInterval( function() {
-            document.getElementById('epoch').innerHTML= 'Time in ms:' + '\t' + Date.now();
-            sendObjectMessage(ws, {event: 'lastSeen', value: Date.now()});
-        },10000);
-
+            document.getElementById('epoch').innerHTML= 'Time in s:' + '\t' + (Date.now()/1000).toFixed(0);
+        },1000);
 
         function sendObjectMessage(ws, value) {
             ws.send(JSON.stringify(value));

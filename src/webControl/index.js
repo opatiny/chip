@@ -1,15 +1,15 @@
 const debug = require('debug')('wc:index'); // wc for web control
 const Five = require('johnny-five');
 const ChipIO = require('../preferences.js').ChipIO;
-const express = require('express');
-const app = express();
-require('express-ws')(app);
+
+
+
 debug('Packages required');
 
 const cylinderPrototype = require('../preferences.js').cylinderPrototype;
 debug('cylinder parameters required');
 
-const prefs = require('./ws');
+const remotePrefs = require('./ws');
 debug('prefs required');
 
 var board = new Five.Board({
@@ -39,26 +39,31 @@ board.on('ready', async function () {
     accelerometer.on('change', async function () {
 
         let newCounter = counter++;
-        debug('Number of changes detected: ' + newCounter);
+        // debug('Number of changes detected: ' + newCounter);
 
         const result = {
             inclination: this.inclination
         };
         let inclination = result.inclination;
-        // debug('inclination' + '\t' + inclination);
+
+        if (remotePrefs.ws) {
+            remotePrefs.ws.send(inclination);
+        }
+ 
+        debug('inclination' + '\t' + inclination);
 
         const baseAngle = toPrototypeInclination(inclination);
         var angleCenter;
         var radiusCenter;
 
-        if (prefs.algorithm === 'control') {
-            angleCenter = await control(baseAngle, prefs);
-            radiusCenter = Math.abs(prefs.radius);
+        if (remotePrefs.algorithm === 'control') {
+            angleCenter = await control(baseAngle, remotePrefs);
+            radiusCenter = Math.abs(remotePrefs.radius);
             debug('radiusCenter; ' + radiusCenter);
-        } else if (prefs.algorithm === 'center') {
+        } else if (remotePrefs.algorithm === 'center') {
             angleCenter = 0;
             radiusCenter = 0;
-        } else if (prefs.algorithm === 'stabilization') {
+        } else if (remotePrefs.algorithm === 'stabilization') {
 
             inclinationLog = [inclinationLog[inclinationLog.length - 1]]; // this allows to have the two last values of inclination
             debug('inclination log' + '\t' + inclinationLog);
