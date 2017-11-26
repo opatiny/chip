@@ -22,18 +22,25 @@ const toPrototypeInclination = require('./features/gyroToProto3Angle');
 const toAlpha = require('./features/toAlphaFunction');
 const control = require('./features/control');
 const stable = require('./features/stable');
+const stablePid = require('./features/stable-pid');
 debug('toAlpha, toPrototypeInclination, control functions required');
 
 board.on('ready', async function () {
 
     var accelerometer = new Five.Accelerometer({
         controller: 'MPU6050',
-        sensitivity: 16384 // optional
+        sensitivity: 1024 // optional
     });
     debug('Accelerometer defined');
 
     var counter = 0; // to count the number of changes
     var inclinationLog = [0, 0];
+    var stabilizationPID = {
+        previousInclination: 0,
+        currentInclination: 0,
+        targetInclination: 0,
+        radiusCenter: 0
+    };
     var angleCenterLog = [0];
 
     accelerometer.on('change', async function () {
@@ -76,6 +83,21 @@ board.on('ready', async function () {
 
             radiusCenter = cylinderPrototype.maxRadiusCenter;
             debug('radiusCenter: ' + radiusCenter);
+        } else if (remotePrefs.algorithm === 'pid') {
+            
+            stabilizationPID.previousInclination = stabilizationPID.currentInclination;
+            stabilizationPID.currentInclination = inclination;
+
+            debug('inclination log' + '\t' + stabilizationPID);
+
+            radiusCenter = stablePid(stabilizationPID);
+            if (radiusCenter < 0) {
+                angleCenter = baseAngle - 90;
+            } else {
+                angleCenter = baseAngle + 90;
+            }
+
+            console.log('radiusCenter: ',radiusCenter, 'angleCenter: ', angleCenter);
         }
 
         await toAlpha(radiusCenter, angleCenter);
