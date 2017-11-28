@@ -14,11 +14,11 @@ function toPrototypeInclination(inclination) {
     debug('corrected inclination' + '\t' + inclination);
 
     var baseAngle; // the angle of the gyro that corresponds to the balanced position of the cylinder for a certain theta
-     
+
     // code that allows to assign the angleCenter of the balanced position of the cylinder, for any value of the accelerometer.
     // These assignations are based on cylinderPrototype3 and the particular position of the gyro on that prototype
 
-    var angleConvertor = {codeAngle0: 1, codeAngle90: 91, codeangle180: 181, codeAngle270: 271}
+    var angleConvertor = {codeAngle0: 1, codeAngle90: 91, codeangle180: 181, codeAngle270: 271};
 
     if (angleConvertor.codeAngle0 <= inclination < angleConvertor.codeAngle90) {
         baseAngle = (inclination - angleConvertor.codeAngle0) * 90 / (angleConvertor.codeAngle90 - angleConvertor.codeAngle0);

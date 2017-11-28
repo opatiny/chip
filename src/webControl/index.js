@@ -3,7 +3,6 @@ const Five = require('johnny-five');
 const ChipIO = require('../preferences.js').ChipIO;
 
 
-
 debug('Packages required');
 
 const cylinderPrototype = require('../preferences.js').cylinderPrototype;
@@ -33,7 +32,7 @@ board.on('ready', async function () {
     });
     debug('Accelerometer defined');
 
-    var counter = 0; // to count the number of changes
+    // var counter = 0; // to count the number of changes
     var inclinationLog = [0, 0];
     var stabilizationPID = {
         previousInclination: 0,
@@ -45,7 +44,7 @@ board.on('ready', async function () {
 
     accelerometer.on('change', async function () {
 
-        let newCounter = counter++;
+        // let newCounter = counter++;
         // debug('Number of changes detected: ' + newCounter);
 
         const result = {
@@ -56,7 +55,7 @@ board.on('ready', async function () {
         if (remotePrefs.ws) {
             remotePrefs.ws.send(inclination);
         }
- 
+
         debug('inclination' + '\t' + inclination);
 
         const baseAngle = toPrototypeInclination(inclination);
@@ -84,7 +83,7 @@ board.on('ready', async function () {
             radiusCenter = cylinderPrototype.maxRadiusCenter;
             debug('radiusCenter: ' + radiusCenter);
         } else if (remotePrefs.algorithm === 'pid') {
-            
+
             stabilizationPID.previousInclination = stabilizationPID.currentInclination;
             stabilizationPID.currentInclination = inclination;
 
@@ -97,7 +96,7 @@ board.on('ready', async function () {
                 angleCenter = baseAngle + 90;
             }
 
-            console.log('radiusCenter: ',radiusCenter, 'angleCenter: ', angleCenter);
+            console.log('radiusCenter: ', radiusCenter, 'angleCenter: ', angleCenter);
         }
 
         await toAlpha(radiusCenter, angleCenter);

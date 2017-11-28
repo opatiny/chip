@@ -4,7 +4,7 @@
 const debug = require('debug')('wc:ws'); // wc for web control
 const express = require('express');
 const app = express();
-const expressWS = require('express-ws')(app);
+// const expressWS = require('express-ws')(app);
 debug('Packages required');
 
 const prefs = {};
@@ -17,12 +17,12 @@ app.ws('/ws', (ws) => {
         // ws.send(msg);
         debug(message);
         prefs[message.event] = message.value;
-        prefs.ws=ws;
+        prefs.ws = ws;
     });
 
     ws.on('close', () => {
         console.log('WebSocket was closed');
-        Object.keys(prefs).forEach( label => prefs[label]=null);
+        Object.keys(prefs).forEach(label => prefs[label] = null);
     });
 
     ws.on('connection', () => {
